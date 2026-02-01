@@ -1,0 +1,22 @@
+{
+  "name": "M&T Venezuela Intelligence",
+  "short_name": "M&T Venezuela",
+  "description": "Portal de Inteligencia Informativa y Económica. Data verificada y análisis en tiempo real.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#030712",
+  "theme_color": "#030712",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
