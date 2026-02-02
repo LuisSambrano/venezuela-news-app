@@ -1,5 +1,4 @@
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
+import { HeaderClearance } from "@/components/layout/HeaderClearance";
 
 export default function MarketingLayout({
   children,
@@ -8,9 +7,8 @@ export default function MarketingLayout({
 }) {
   return (
     <>
-      <Header />
+      <HeaderClearance />
       {children}
-      <Footer />
     </>
   );
 }
