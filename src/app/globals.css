@@ -1,58 +1,135 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius: var(--radius);
+  
+  --font-sans: var(--font-sans);
+  --font-heading: var(--font-heading);
+  --font-mono: var(--font-mono);
+
+  /* 
+    PROTOCOL ZERO: MATHEMATICAL CORE
+    Based on Phi (φ ≈ 1.618)
+    Base Unit: 0.25rem (4px)
+  */
+
+  /* Typography: The Modular Scale (1rem * φ^n) */
+  --text-hero: 4.236rem;     /* 67.77px */
+  --text-title: 2.618rem;    /* 41.89px */
+  --text-subtitle: 1.618rem; /* 25.89px */
+  --text-body: 1rem;         /* 16.00px */
+  --text-caption: 0.618rem;  /* 9.89px */
+  --text-micro: 0.382rem;    /* 6.11px */
+
+  /* Spacing: The Fibonacci Sequence (Approx) */
+  --spacing-phi-1: 0.25rem;  /* 4px */
+  --spacing-phi-2: 0.5rem;   /* 8px */
+  --spacing-phi-3: 0.75rem;  /* 12px */
+  --spacing-phi-5: 1.25rem;  /* 20px */
+  --spacing-phi-8: 2rem;     /* 32px */
+  --spacing-phi-13: 3.25rem; /* 52px */
+  --spacing-phi-21: 5.25rem; /* 84px */
+  --spacing-phi-34: 8.5rem;  /* 136px */
+  
+  /* Layout: Golden Aspect Ratios */
+  --aspect-golden-l: 16 / 10; /* Landscape (Approx Phi) */
+  --aspect-golden-p: 10 / 16; /* Portrait */
+  --aspect-cinema: 21 / 9;    /* Ultrawide */
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Custom Utilities definition layer is implied in v4 but we keep custom classes */
 
 @layer base {
   :root {
-    /* LIGHT MODE (Clean & Corporate) */
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%; /* Brand Blue */
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
-    --radius: 0.75rem;
-    
-    /* FONTS */
-    --font-sans: "Inter", system-ui, sans-serif;
-    --font-heading: "Outfit", system-ui, sans-serif;
-    --font-mono: "JetBrains Mono", monospace;
+    /* PROTOCOL ZERO: LIGHT MODE (Porcelain Scale) */
+    /* Baja Albedo para evitar deslumbramiento. Blanco "Soft" */
+    --background: hsl(0 0% 98%); /* Zinc 50 */
+    --foreground: hsl(240 10% 3.9%); /* Zinc 950 */
+
+    --card: hsl(0 0% 100%); /* Absolute White */
+    --card-foreground: hsl(240 10% 3.9%);
+
+    --popover: hsl(0 0% 100%);
+    --popover-foreground: hsl(240 10% 3.9%);
+
+    --primary: hsl(240 5.9% 10%); /* Zinc 900 */
+    --primary-foreground: hsl(0 0% 98%);
+
+    --secondary: hsl(240 4.8% 95.9%); /* Zinc 100 */
+    --secondary-foreground: hsl(240 5.9% 10%);
+
+    --muted: hsl(240 4.8% 95.9%);
+    --muted-foreground: hsl(240 3.8% 46.1%); /* Zinc 500 */
+
+    --accent: hsl(240 4.8% 95.9%);
+    --accent-foreground: hsl(240 5.9% 10%);
+
+    --destructive: hsl(0 84.2% 60.2%);
+    --destructive-foreground: hsl(0 0% 98%);
+
+    --border: hsl(240 5.9% 90%); /* Zinc 200 */
+    --input: hsl(240 5.9% 90%);
+    --ring: hsl(240 5.9% 10%);
+
+    --radius-sm: 0.375rem; /* 6px */
+    --radius: 0.75rem;     /* 12px (md) */
+    --radius-lg: 1.5rem;   /* 24px */
+    --radius-full: 9999px; /* Pill */
   }
 
   .dark {
-    /* DARK MODE (Deep Space) */
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 48%;
+    /* PROTOCOL ZERO: DARK MODE (Void Scale) */
+    /* "Isotope" Scale para fatiga visual reducida */
+    --background: hsl(240 10% 3.9%); /* Zinc 950 - Piso */
+    --foreground: hsl(0 0% 98%);     /* Signal White */
+
+    --card: hsl(240 10% 3.9%);       /* Zinc 950 - Superficie */
+    --card-foreground: hsl(0 0% 98%);
+
+    --popover: hsl(240 10% 3.9%);
+    --popover-foreground: hsl(0 0% 98%);
+
+    --primary: hsl(0 0% 98%);
+    --primary-foreground: hsl(240 5.9% 10%);
+
+    --secondary: hsl(240 3.7% 15.9%); /* Zinc 800 */
+    --secondary-foreground: hsl(0 0% 98%);
+
+    --muted: hsl(240 3.7% 15.9%);
+    --muted-foreground: hsl(240 5% 64.9%); /* Zinc 500 */
+
+    --accent: hsl(240 3.7% 15.9%);
+    --accent-foreground: hsl(0 0% 98%);
+
+    --destructive: hsl(0 62.8% 30.6%);
+    --destructive-foreground: hsl(0 0% 98%);
+
+    --border: hsl(240 3.7% 15.9%);
+    --input: hsl(240 3.7% 15.9%);
+    --ring: hsl(240 4.9% 83.9%);
   }
 }
 
@@ -60,17 +137,55 @@
   * {
     @apply border-border;
   }
+  html {
+    scroll-behavior: smooth;
+    scroll-snap-type: y proximity; /* Hybrid Snap: Magnetism without Jail */
+  }
   body {
-    @apply bg-background text-foreground;
+    /* Global Apple Vibe Enforcement */
+    @apply bg-background text-foreground antialiased selection:bg-white/20 selection:text-white;
+    font-feature-settings: "ss01", "ss02", "cv01", "cv02"; /* Cleaner glyphs */
+  }
+  
+  /* Typography Hierarchy enforcement */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tighter text-foreground;
+  }
+  
+  p, li, span {
+    @apply leading-relaxed;
   }
 }
 
-/* GLASSMORPHISM UTILITIES */
+/* GLASSMORPHISM UTILITIES (Refined) */
 .glass {
-  @apply bg-white/10 backdrop-blur-lg border border-white/20 shadow-xl;
-  /* Dark mode adaptation embedded logic */
+  @apply bg-white/50 dark:bg-zinc-950/40 backdrop-blur-2xl border border-zinc-200 dark:border-white/10 shadow-sm dark:shadow-[0_8px_32px_0_rgba(0,0,0,0.36)];
 }
 
-.dark .glass {
-  @apply bg-black/30 border-white/10;
+.glass-panel {
+  @apply bg-white/80 dark:bg-zinc-950/60 backdrop-blur-xl border border-zinc-200 dark:border-white/5 shadow-xl dark:shadow-2xl;
 }
+
+/* AUTHENTIC APPLE SPRING ANIMATION */
+@keyframes apple-spring {
+  0% { transform: scale(0.95); opacity: 0; filter: blur(10px); }
+  100% { transform: scale(1); opacity: 1; filter: blur(0px); }
+}
+
+.animate-enter {
+  animation: apple-spring 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes aurora {
+  from {
+    background-position: 50% 50%, 50% 50%;
+  }
+  to {
+    background-position: 350% 50%, 350% 50%;
+  }
+}
+
+.animate-aurora {
+  animation: aurora 60s linear infinite;
+}
+

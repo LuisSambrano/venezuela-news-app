@@ -1,99 +1,75 @@
 "use client";
 
+"use client";
+
 import Link from "next/link";
 import { Search, Sun, Moon, User, Menu } from "lucide-react";
-import { Button } from "@/components/ui/button"; // Access from shadcn (we'll create this) or use html button for now
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
+import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
-  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  const pathname = usePathname();
 
-  // Handle Scroll Effect
+  // Handle Scroll Effect & Hydration
   useEffect(() => {
+    setMounted(true);
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Simple Theme Toggle (Placeholder for real provider)
   const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
-    setTheme(newTheme);
-    document.documentElement.classList.toggle("dark");
+    setTheme(theme === "light" ? "dark" : "light");
   };
 
+  // Prevent hydration mismatch
+  if (!mounted) {
+    return null; 
+  }
+
+  const isActive = (path: string) => pathname.startsWith(path);
+
   return (
-    <header
-      className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        scrolled
-          ? "glass h-16 border-b border-black/5 dark:border-white/10"
-          : "h-20 bg-transparent border-transparent"
-      )}
-    >
-      <div className="container mx-auto h-full px-4 flex items-center justify-between">
-        {/* 1. LOGO */}
-        <Link href="/" className="flex items-center gap-3 group">
-          <div className="relative w-8 h-8 rounded-full bg-gradient-to-tr from-primary to-blue-400 opacity-90 group-hover:scale-105 transition-transform" />
-          <div className="flex flex-col">
-            <span className="font-heading font-bold text-lg leading-none tracking-tight">
-              M&T<span className="text-primary">Venezuela</span>
-            </span>
-            <span className="text-[0.6rem] font-mono tracking-[0.2em] text-muted-foreground uppercase">
-              Open-Source Intelligence
-            </span>
+    <nav className="fixed top-6 left-1/2 -translate-x-1/2 w-[95%] max-w-6xl z-100 transition-all duration-500">
+      <div className={cn(
+        "flex justify-between items-center px-6 py-3 rounded-full backdrop-blur-3xl transition-all duration-500 border",
+        scrolled 
+          ? "bg-background/80 border-border shadow-sm" 
+          : "bg-transparent border-transparent"
+      )}>
+        {/* LOGO */}
+        <Link href="/" className="flex items-center space-x-3 cursor-pointer group">
+          <div className="w-8 h-8 rounded-full bg-foreground flex items-center justify-center transition-all group-hover:scale-105">
+            <span className="text-background font-black text-[10px]">M&T</span>
+          </div>
+          <div className="leading-none flex flex-col">
+            <span className="font-black tracking-tighter text-xs uppercase text-foreground">M&T Venezuela</span>
+            <p className="text-[7px] uppercase tracking-[0.2em] text-muted-foreground font-bold italic">Nodo de Datos</p>
           </div>
         </Link>
+        
+        {/* NAVIGATION */}
+        <div className="hidden md:flex space-x-8 text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground">
+          <Link href="/noticias" className={cn("transition-colors hover:text-foreground", isActive("/noticias") && "text-foreground underline underline-offset-4 decoration-border")}>Noticias</Link>
+          <Link href="/registro-central" className={cn("transition-colors hover:text-foreground", isActive("/registro-central") && "text-foreground underline underline-offset-4 decoration-border")}>Registro</Link>
+          <Link href="/institucional/nosotros" className={cn("transition-colors hover:text-foreground", isActive("/institucional") && "text-foreground underline underline-offset-4 decoration-border")}>Nosotros</Link>
+        </div>
 
-        {/* 2. NAVIGATION (Hidden on mobile) */}
-        <nav className="hidden md:flex items-center gap-8">
-          {[
-            { label: "NOTICIAS", href: "/noticias" },
-            { label: "INSTITUCIONAL", href: "/institucional" },
-            { label: "REGISTRO CENTRAL", href: "/registro-central" },
-          ].map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="text-xs font-bold tracking-widest text-muted-foreground hover:text-foreground transition-colors uppercase"
-            >
-              {link.label}
-            </Link>
-          ))}
-        </nav>
-
-        {/* 3. ACTIONS */}
-        <div className="flex items-center gap-2">
-           {/* Search Trigger */}
-          <button className="p-2 text-muted-foreground hover:text-foreground hover:bg-black/5 dark:hover:bg-white/5 rounded-full transition-colors">
-            <Search className="w-4 h-4" />
+        {/* ACTIONS */}
+        <div className="flex items-center space-x-4">
+          <button onClick={toggleTheme} className="text-muted-foreground hover:text-foreground transition-colors">
+            {theme === "light" ? <Sun size={14} /> : <Moon size={14} />}
           </button>
-
-           {/* Theme Toggle */}
-          <button 
-            onClick={toggleTheme}
-            className="p-2 text-muted-foreground hover:text-foreground hover:bg-black/5 dark:hover:bg-white/5 rounded-full transition-colors"
-          >
-            {theme === "light" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-          </button>
-
-          {/* Login Button */}
-          <Link 
-            href="/auth" 
-            className="hidden sm:flex items-center gap-2 px-4 py-1.5 ml-2 rounded-full border border-border bg-background hover:bg-muted transition-all text-xs font-medium"
-          >
-            <User className="w-3 h-3" />
-            <span>Acceder</span>
+          <Link href="/auth" className="glass px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-foreground/5 transition-all hidden sm:block text-foreground">
+            Acceso
           </Link>
-          
-          {/* Mobile Menu */}
-           <button className="md:hidden p-2 text-muted-foreground">
-            <Menu className="w-5 h-5" />
-          </button>
         </div>
       </div>
-    </header>
+    </nav>
   );
 }

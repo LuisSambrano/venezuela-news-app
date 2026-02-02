@@ -1,18 +1,17 @@
 import type { Metadata, Viewport } from "next";
-import localFont from "next/font/local";
-import { Header } from "@/components/layout/Header";
+import { Inter, JetBrains_Mono } from "next/font/google"; 
 import "./globals.css";
+import { ThemeProvider } from "@/components/theme-provider";
 
-// Font Configuration (Matching Brand)
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
+// Font Configuration (Antigravity Standard)
+const fontSans = Inter({
   variable: "--font-sans",
-  weight: "100 900",
+  subsets: ["latin"],
 });
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
+
+const fontMono = JetBrains_Mono({
   variable: "--font-mono",
-  weight: "100 900",
+  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
@@ -20,7 +19,7 @@ export const metadata: Metadata = {
   description: "Portal de Inteligencia Open-Source. Noticias verificadas, monitoreo económico y análisis forense.",
   manifest: "/manifest.json",
   icons: {
-    icon: "/icon.png", // We will need to generate this
+    icon: "/icon.png", 
     apple: "/icon.png",
   }
 };
@@ -32,20 +31,28 @@ export const viewport: Viewport = {
   maximumScale: 1,
 };
 
+// ... (previous imports)
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className="scroll-smooth">
+    <html lang="es" className="scroll-smooth" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground selection:bg-primary/20 selection:text-primary`}
+        className={`${fontSans.variable} ${fontMono.variable} antialiased bg-background text-foreground selection:bg-primary/20 selection:text-primary`}
       >
-        <Header />
-        <main className="min-h-screen pt-20">
-          {children}
-        </main>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <main className="min-h-screen">
+            {children}
+          </main>
+        </ThemeProvider>
       </body>
     </html>
   );
