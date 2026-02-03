@@ -4,6 +4,14 @@
 
 A real-time news aggregation platform built with Next.js 16, featuring AI-powered content curation, SEO optimization, and a modern glassmorphism design system.
 
+<!-- CTAs -->
+<p align="center">
+  <a href="https://github.com/LuisSambrano/venezuela-news-app/stargazers"><img src="https://img.shields.io/github/stars/LuisSambrano/venezuela-news-app?style=flat-square" alt="Stars"/></a>
+  <a href="https://github.com/LuisSambrano/venezuela-news-app/network/members"><img src="https://img.shields.io/github/forks/LuisSambrano/venezuela-news-app?style=flat-square" alt="Forks"/></a>
+  <a href="https://github.com/LuisSambrano/venezuela-news-app/issues"><img src="https://img.shields.io/github/issues/LuisSambrano/venezuela-news-app?style=flat-square" alt="Issues"/></a>
+  <a href="https://github.com/LuisSambrano/venezuela-news-app/blob/main/LICENSE"><img src="https://img.shields.io/github/license/LuisSambrano/venezuela-news-app?style=flat-square" alt="License"/></a>
+</p>
+
 ## Overview
 
 This application serves as a comprehensive news portal focused on Venezuelan current events. It combines modern web technologies with thoughtful UX design to deliver a fast, accessible, and visually engaging reading experience.
