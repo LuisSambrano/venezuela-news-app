@@ -1,75 +1,75 @@
 "use client";
 
-"use client";
-
 import Link from "next/link";
-import { Search, Sun, Moon, User, Menu } from "lucide-react";
-import { useState, useEffect } from "react";
+import { Search, Sun, Moon } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
 export function Header() {
-  const [scrolled, setScrolled] = useState(false);
   const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
-
-  // Handle Scroll Effect & Hydration
-  useEffect(() => {
-    setMounted(true);
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const toggleTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light");
-  };
-
-  // Prevent hydration mismatch
-  if (!mounted) {
-    return null; 
-  }
 
   const isActive = (path: string) => pathname.startsWith(path);
 
   return (
-    <nav className="fixed top-6 left-1/2 -translate-x-1/2 w-[95%] max-w-6xl z-100 transition-all duration-500">
-      <div className={cn(
-        "flex justify-between items-center px-6 py-3 rounded-full backdrop-blur-3xl transition-all duration-500 border",
-        scrolled 
-          ? "bg-background/80 border-border shadow-sm" 
-          : "bg-transparent border-transparent"
-      )}>
+    <header className="fixed top-8 left-0 right-0 z-50 flex justify-center px-4">
+      <nav className="flex items-center justify-between w-full max-w-6xl h-16 px-8 rounded-full border border-zinc-200/50 dark:border-white/10 bg-white/70 dark:bg-zinc-950/70 backdrop-blur-2xl shadow-sm">
         {/* LOGO */}
-        <Link href="/" className="flex items-center space-x-3 cursor-pointer group">
-          <div className="w-8 h-8 rounded-full bg-foreground flex items-center justify-center transition-all group-hover:scale-105">
-            <span className="text-background font-black text-[10px]">M&T</span>
+        <Link href="/" className="flex items-center gap-4 group">
+          <div className="w-10 h-10 rounded-full border border-zinc-200 dark:border-white/10 flex items-center justify-center bg-white dark:bg-zinc-900 shadow-sm transition-transform group-hover:scale-105">
+             <div className="w-6 h-6 rounded-full border-[1.5px] border-zinc-300 dark:border-zinc-700 flex items-center justify-center">
+                <div className="w-2 h-2 rounded-full bg-zinc-400 dark:bg-zinc-600" />
+             </div>
           </div>
-          <div className="leading-none flex flex-col">
-            <span className="font-black tracking-tighter text-xs uppercase text-foreground">M&T Venezuela</span>
-            <p className="text-[7px] uppercase tracking-[0.2em] text-muted-foreground font-bold italic">Nodo de Datos</p>
+          <div className="flex flex-col">
+            <span className="font-bold tracking-tight text-base text-zinc-800 dark:text-zinc-100 italic">M&TVenezuela</span>
+            <span className="text-[8px] uppercase tracking-[0.2em] font-medium text-zinc-400 dark:text-zinc-500">Open-Source Intelligence</span>
           </div>
         </Link>
         
-        {/* NAVIGATION */}
-        <div className="hidden md:flex space-x-8 text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground">
-          <Link href="/noticias" className={cn("transition-colors hover:text-foreground", isActive("/noticias") && "text-foreground underline underline-offset-4 decoration-border")}>Noticias</Link>
-          <Link href="/registro-central" className={cn("transition-colors hover:text-foreground", isActive("/registro-central") && "text-foreground underline underline-offset-4 decoration-border")}>Registro</Link>
-          <Link href="/institucional/nosotros" className={cn("transition-colors hover:text-foreground", isActive("/institucional") && "text-foreground underline underline-offset-4 decoration-border")}>Nosotros</Link>
+        {/* NAV LINKS */}
+        <div className="hidden md:flex items-center gap-10">
+          <Link href="/noticias" className={cn(
+            "text-[10px] font-bold uppercase tracking-widest transition-colors",
+            isActive("/noticias") ? "text-zinc-900 dark:text-white" : "text-zinc-400 hover:text-zinc-600 dark:text-zinc-500 dark:hover:text-zinc-300"
+          )}>
+            Noticias
+          </Link>
+          <Link href="/institucional" className={cn(
+            "text-[10px] font-bold uppercase tracking-widest transition-colors",
+            isActive("/institucional") ? "text-zinc-900 dark:text-white" : "text-zinc-400 hover:text-zinc-600 dark:text-zinc-500 dark:hover:text-zinc-300"
+          )}>
+            Institucional
+          </Link>
+          <Link href="/registro-central" className={cn(
+            "text-[10px] font-bold uppercase tracking-widest transition-colors",
+            isActive("/registro-central") ? "text-zinc-900 dark:text-white" : "text-zinc-400 hover:text-zinc-600 dark:text-zinc-500 dark:hover:text-zinc-300"
+          )}>
+            Registro Central
+          </Link>
         </div>
 
         {/* ACTIONS */}
-        <div className="flex items-center space-x-4">
-          <button onClick={toggleTheme} className="text-muted-foreground hover:text-foreground transition-colors">
-            {theme === "light" ? <Sun size={14} /> : <Moon size={14} />}
+        <div className="flex items-center gap-6">
+          <button className="text-zinc-400 hover:text-zinc-600 dark:text-zinc-500 dark:hover:text-zinc-300 transition-colors">
+            <Search size={18} />
           </button>
-          <Link href="/auth" className="glass px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-foreground/5 transition-all hidden sm:block text-foreground">
-            Acceso
+          <button 
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            className="text-zinc-400 hover:text-zinc-600 dark:text-zinc-500 dark:hover:text-zinc-300 transition-colors"
+          >
+            {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+          </button>
+          <Link href="/auth">
+            <Button variant="outline" size="sm" className="rounded-full px-6 border-zinc-200 dark:border-white/10 text-[9px] font-bold uppercase tracking-widest flex items-center gap-2">
+              <div className="w-1 h-1 rounded-full bg-blue-500" />
+              Acceder
+            </Button>
           </Link>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </header>
   );
 }
