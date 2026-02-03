@@ -1,174 +1,370 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
-  Layers, Globe2, TrendingUp, Cpu, Trophy, HeartPulse, Music, Map, 
-  CheckCircle2, Clock, MessageSquare, ArrowUpRight, Activity, Scan, ChevronDown, ChevronLeft, ChevronRight
+  TrendingUp, Activity, Clock, 
+  ChevronLeft, ChevronRight, Globe2, Cpu, Landmark, ShieldCheck,
+  Plus
 } from 'lucide-react';
-import { HeaderClearance } from "@/components/layout/HeaderClearance";
-import { SectionDivider } from "@/components/ui/SectionDivider";
+import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 import { cn } from "@/lib/utils";
+import { HeaderClearance } from "@/components/layout/HeaderClearance";
 
-export default function NewsFeed() {
-  const [activeVector, setActiveVector] = useState('Todas');
-  const [showAll, setShowAll] = useState(false);
+// --- TYPES ---
+interface NewsItem {
+  id: string;
+  title: string;
+  subtitle: string;
+  category: string;
+  image: string;
+  time: string;
+  datePublished: string;
+  author: string;
+  url: string;
+}
 
-  const vectors = [
-    { name: 'Todas', icon: <Layers size={14} />, count: 142 },
-    { name: 'Internacional', icon: <Globe2 size={14} />, count: 24 },
-    { name: 'Locales', icon: <Map size={14} />, count: 56 },
-    { name: 'Negocios', icon: <TrendingUp size={14} />, count: 18 },
-    { name: 'Ciencia y Tec', icon: <Cpu size={14} />, count: 12 },
-    { name: 'Deportes', icon: <Trophy size={14} />, count: 9 },
-    { name: 'Salud', icon: <HeartPulse size={14} />, count: 15 },
-    { name: 'Entretenimiento', icon: <Music size={14} />, count: 8 }
-  ];
+// --- SEO STRUCTURED DATA COMPONENT ---
+const NewsStructuredData = ({ items }: { items: NewsItem[] }) => {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "itemListElement": items.map((item, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "item": {
+        "@type": "NewsArticle",
+        "headline": item.title,
+        "description": item.subtitle,
+        "image": item.image,
+        "datePublished": item.datePublished,
+        "author": {
+          "@type": "Person",
+          "name": item.author
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "M&T Venezuela",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://mtvenezuela.com/logo.png"
+          }
+        }
+      }
+    }))
+  };
 
   return (
-    <main className="max-w-[1550px] mx-auto p-phi-5 lg:p-phi-8 space-y-phi-13">
-      <HeaderClearance />
-      
-      <section className="grid grid-cols-1 lg:grid-cols-12 gap-phi-5">
-        {/* Main Feed: 8/12 (~61.8% in 12-col grid approximation) */}
-        <div className="lg:col-span-8 group h-full">
-          <div className="group relative h-full rounded-[32px] overflow-hidden bg-card border border-border hover:border-sidebar-accent transition-all duration-500 shadow-sm">
-            <div className="aspect-golden-l overflow-hidden relative">
-              <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80" className="w-full h-full object-cover grayscale opacity-60 group-hover:opacity-80 transition-all duration-1000 group-hover:scale-105" alt="Principal" />
-              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent"></div>
-              <div className="absolute top-phi-8 left-phi-8">
-                <span className="glass px-phi-3 py-phi-2 rounded-full text-caption font-bold uppercase tracking-widest text-muted-foreground border border-border">{activeVector === 'Todas' ? 'Dossier Especial' : activeVector}</span>
-              </div>
-              <div className="absolute bottom-phi-8 left-phi-8 right-phi-8 space-y-phi-2">
-                <div className="flex items-center space-x-3 text-muted-foreground font-bold text-caption uppercase tracking-widest"><CheckCircle2 size={14} /><span>Nodo Verificado</span></div>
-                <h2 className="text-title md:text-hero font-semibold tracking-tighter leading-[0.9] text-card-foreground">La Red Que <br/> Apagó El País</h2>
-              </div>
-            </div>
-            <div className="p-phi-8 space-y-phi-5">
-               <p className="text-subtitle font-light text-muted-foreground leading-relaxed max-w-3xl">Investigación forense sobre los flujos financieros ilícitos vinculados al colapso del sistema eléctrico nacional.</p>
-               <div className="flex items-center justify-between border-t border-border pt-phi-5 mt-auto">
-                  <div className="flex items-center space-x-phi-5 text-caption font-bold uppercase tracking-widest text-muted-foreground">
-                    <span className="flex items-center"><Clock size={14} className="mr-2" /> 15 min</span>
-                    <span className="flex items-center"><MessageSquare size={14} className="mr-2" /> 42</span>
-                  </div>
-                  <button className="flex items-center space-x-2 text-card-foreground text-caption font-bold uppercase tracking-widest group-hover:text-primary transition-colors">
-                    <span>Leer Informe</span><ArrowUpRight size={14} />
-                  </button>
-               </div>
-            </div>
-          </div>
-        </div>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+};
 
-        {/* Sidebar Terminal: 4/12 (~38.2%) */}
-        <div className="lg:col-span-4 flex flex-col gap-phi-3">
-          {/* Monitor Económico (Minimal) */}
-          <div className="bg-card p-phi-5 rounded-[32px] border border-border flex flex-col justify-between h-auto shadow-sm">
-             <header className="flex justify-between items-center mb-phi-3 text-caption font-bold uppercase tracking-widest text-muted-foreground">
-                <h3>Monitor</h3>
-                <Activity size={16} className="text-primary animate-pulse" />
-             </header>
-             <div>
-                <div className="group cursor-pointer space-y-phi-1">
-                  <p className="text-caption font-bold text-muted-foreground uppercase tracking-widest">Dólar Paralelo</p>
-                  <div className="flex justify-between items-baseline">
-                    <p className="text-title font-semibold tracking-tighter text-card-foreground">Bs. 52,40</p>
-                    <span className="text-micro font-bold text-emerald-500">+1.2%</span>
-                  </div>
-                </div>
-             </div>
-          </div>
+// --- COMPONENTS ---
 
-          {/* Terminal de Vectores (Standard List) */}
-          <div className="bg-card p-phi-5 rounded-[32px] border border-border flex-grow shadow-sm">
-             <header className="flex justify-between items-center mb-phi-3 pb-phi-2 border-b border-border">
-                <h4 className="text-caption font-bold uppercase tracking-widest text-muted-foreground">Vectores</h4>
-                <Scan size={14} className="text-muted-foreground" />
-             </header>
-             <nav className="space-y-phi-1">
-                {vectors.map((v) => (
-                  <button 
-                    key={v.name}
-                    onClick={() => setActiveVector(v.name)}
-                    className={cn(
-                      "w-full flex justify-between items-center px-4 py-3 rounded-xl transition-all text-caption uppercase tracking-widest group border border-transparent",
-                      activeVector === v.name 
-                      ? 'bg-primary/5 text-primary border-primary/10' 
-                      : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
-                    )}
-                  >
-                    <div className="flex items-center space-x-3">
-                       <span>{v.icon}</span>
-                       <span>{v.name}</span>
-                    </div>
-                    <span className="opacity-40 font-mono text-micro">[{v.count}]</span>
-                  </button>
-                ))}
-             </nav>
-          </div>
-        </div>
-      </section>
+const ArrowUpRight = ({ size, className }: { size: number, className?: string }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <line x1="7" y1="17" x2="17" y2="7"></line>
+    <polyline points="7 7 17 7 17 17"></polyline>
+  </svg>
+);
 
-      <SectionDivider label={`Feed: ${activeVector}`} number="01" />
+const HeroCarousel = ({ items }: { items: NewsItem[] }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-      {/* Secondary Grid */}
-      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-phi-5">
-        {Array.from({ length: showAll ? 12 : 6 }).map((_, i) => (
-          <article key={i} className="group cursor-pointer bg-card rounded-[24px] overflow-hidden border border-border hover:border-foreground/20 hover:shadow-2xl transition-all duration-500 flex flex-col shadow-sm">
-            <div className="aspect-golden-l overflow-hidden relative bg-secondary">
-               <div className="absolute top-4 left-4 z-10 w-full pr-8">
-                 <span className="bg-background/80 backdrop-blur-md text-foreground text-caption font-bold uppercase px-3 py-1 rounded-full border border-border">{activeVector === 'Todas' ? 'Análisis' : activeVector}</span>
-               </div>
-               {/* Placeholder gradient instead of image for abstract feel */}
-               <div className="w-full h-full bg-gradient-to-br from-secondary to-background group-hover:scale-105 transition-transform duration-700"></div>
-            </div>
-            <div className="p-phi-5 flex flex-col flex-grow space-y-phi-2">
-              <h4 className="text-subtitle font-semibold leading-tight text-card-foreground group-hover:text-primary transition-colors">Informe procesado de interés para el nodo {activeVector} {i + 1}</h4>
-              <div className="flex items-center justify-between text-muted-foreground text-caption font-bold uppercase tracking-widest pt-phi-3 mt-auto border-t border-border">
-                 <span>FEB 01</span><ArrowUpRight size={14} />
-              </div>
-            </div>
-          </article>
-        ))}
-      </section>
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % items.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [items.length]);
 
-      {/* Pagination / Load More Control */}
-      <div className="flex justify-center pt-phi-8 pb-phi-13">
-         {!showAll ? (
-            <button 
-               onClick={() => setShowAll(true)}
-               className="group relative px-8 py-3 rounded-full bg-background border border-border hover:border-foreground/20 transition-all duration-300"
+  const currentItem = items[currentIndex];
+
+  return (
+    <div className="col-span-12 lg:col-span-9 relative aspect-video md:aspect-cinema rounded-[32px] overflow-hidden group shadow-xl">
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={currentIndex}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.7 }}
+          className="absolute inset-0"
+        >
+          <Image 
+            src={currentItem.image} 
+            alt={currentItem.title}
+            fill
+            className="object-cover"
+            priority
+          />
+          {/* GRADIENT OVERLAY FOR CONTRAST */}
+          <div className="absolute inset-0 bg-linear-to-t from-zinc-950 via-zinc-950/20 to-transparent opacity-90" />
+          
+          <div className="absolute bottom-0 left-0 p-8 md:p-12 w-full max-w-3xl space-y-4">
+            <motion.span 
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="px-4 py-1.5 rounded-full bg-blue-600/90 backdrop-blur-md text-[10px] font-bold uppercase tracking-[0.2em] text-white shadow-lg"
             >
-               <span className="text-caption font-bold uppercase tracking-widest text-muted-foreground group-hover:text-foreground flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                  Desplegar Vector Completo (12)
-                  <ChevronDown size={14} />
-               </span>
-            </button>
-         ) : (
-            // Google-style Pagination (Forensic Interpretation)
-            <div className="flex items-center gap-phi-3 bg-secondary/30 p-2 rounded-full border border-border backdrop-blur-sm">
-               <button className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-background text-muted-foreground hover:text-foreground transition-colors">
-                  <ChevronLeft size={16} />
-               </button>
-               
-               {[1, 2, 3, 4, 5].map((page) => (
-                  <button 
-                     key={page}
-                     className={cn(
-                        "w-10 h-10 rounded-full text-caption font-bold flex items-center justify-center transition-all",
-                        page === 1 
-                           ? "bg-foreground text-background shadow-md" 
-                           : "text-muted-foreground hover:bg-background hover:text-foreground"
-                     )}
-                  >
-                     {page}
-                  </button>
-               ))}
-               
-               <button className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-background text-muted-foreground hover:text-foreground transition-colors">
-                  <ChevronRight size={16} />
-               </button>
+              Noticia Destacada
+            </motion.span>
+            <motion.h1 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="text-3xl md:text-5xl lg:text-6xl font-black tracking-tight text-white leading-[1.05] drop-shadow-2xl"
+            >
+              {currentItem.title}
+            </motion.h1>
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className="text-zinc-200 text-base md:text-xl line-clamp-2 font-medium max-w-2xl"
+            >
+              {currentItem.subtitle}
+            </motion.p>
+          </div>
+        </motion.div>
+      </AnimatePresence>
+
+      {/* CAROUSEL CONTROLS */}
+      <div className="absolute bottom-8 right-8 flex items-center gap-2">
+        <button 
+          onClick={() => setCurrentIndex((prev) => (prev - 1 + items.length) % items.length)}
+          className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all"
+        >
+          <ChevronLeft size={18} />
+        </button>
+        <div className="flex gap-1.5 px-3">
+          {items.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setCurrentIndex(idx)}
+              className={cn(
+                "h-1.5 rounded-full transition-all",
+                idx === currentIndex ? "w-8 bg-white" : "w-1.5 bg-white/40"
+              )}
+            />
+          ))}
+        </div>
+        <button 
+          onClick={() => setCurrentIndex((prev) => (prev + 1) % items.length)}
+          className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all"
+        >
+          <ChevronRight size={18} />
+        </button>
+      </div>
+    </div>
+  );
+};
+
+const Sidebar = () => (
+  <aside className="col-span-12 lg:col-span-3 flex flex-col gap-6">
+    {/* MONITOR */}
+    <div className="flex-1 p-8 rounded-[32px] bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-white/5 shadow-sm flex flex-col justify-between">
+      <div className="flex justify-between items-center border-b border-zinc-100 dark:border-white/5 pb-4">
+        <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-800 dark:text-zinc-200">Monitor</h3>
+        <Activity size={16} className="text-blue-500" />
+      </div>
+      <div className="space-y-6 pt-4">
+        <div className="flex justify-between items-end">
+          <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">Paralelo</span>
+          <div className="text-right">
+            <p className="text-2xl font-black tracking-tighter text-zinc-900 dark:text-white">Bs. 52.40</p>
+            <span className="text-[10px] font-bold text-emerald-500 bg-emerald-500/10 px-2 py-0.5 rounded-full">+1.2%</span>
+          </div>
+        </div>
+        <div className="flex justify-between items-end">
+          <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">BCV</span>
+          <div className="text-right">
+            <p className="text-2xl font-black tracking-tighter text-zinc-900 dark:text-white">Bs. 48.15</p>
+            <span className="text-[10px] font-bold text-zinc-300">0.0%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* TENDENCIAS */}
+    <div className="flex-1 p-8 rounded-[32px] bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-white/5 shadow-sm">
+      <div className="flex justify-between items-center border-b border-zinc-100 dark:border-white/5 pb-4 mb-4">
+        <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-800 dark:text-zinc-200">Trends</h3>
+        <TrendingUp size={16} className="text-zinc-400" />
+      </div>
+      <ul className="space-y-3">
+        {['#Esequibo', '#DolarHoy', '#CriptoVzla'].map((tag) => (
+          <li key={tag} className="flex justify-between items-center group cursor-pointer hover:translate-x-1 transition-transform">
+            <span className="text-[11px] font-bold text-zinc-500 dark:text-zinc-400 uppercase italic">
+              {tag}
+            </span>
+            <ArrowUpRight size={12} className="text-zinc-300 group-hover:text-blue-500 transition-colors" />
+          </li>
+        ))}
+      </ul>
+    </div>
+  </aside>
+);
+
+const NewsCard = ({ item }: { item: NewsItem }) => (
+  <motion.article
+    layout
+    initial={{ opacity: 0, scale: 0.95 }}
+    animate={{ opacity: 1, scale: 1 }}
+    exit={{ opacity: 0, scale: 0.95 }}
+    viewport={{ once: true }}
+    className="flex flex-col gap-5 group cursor-pointer"
+  >
+    <div className="relative aspect-16/10 rounded-[24px] overflow-hidden border border-zinc-100 dark:border-white/5 shadow-md">
+      <Image 
+        src={item.image} 
+        alt={item.title}
+        fill
+        className="object-cover transition-transform duration-700 group-hover:scale-110"
+      />
+      <div className="absolute inset-0 bg-zinc-900/5 group-hover:bg-transparent transition-colors" />
+    </div>
+    <div className="space-y-3 px-1">
+      <div className="flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-zinc-400">
+        <span className="text-blue-600 dark:text-blue-400">{item.category}</span>
+        <span className="flex items-center gap-1.5"><Clock size={12} /> {item.time}</span>
+      </div>
+      <h3 className="text-xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 line-clamp-2 leading-[1.2] group-hover:text-blue-600 transition-colors">
+        {item.title}
+      </h3>
+      <p className="text-sm text-zinc-500 dark:text-zinc-400 line-clamp-2 leading-relaxed">
+        {item.subtitle}
+      </p>
+    </div>
+  </motion.article>
+);
+
+const Pagination = () => (
+  <nav className="flex items-center justify-center gap-2 pt-16">
+    <button className="w-10 h-10 rounded-full border border-zinc-100 dark:border-white/5 flex items-center justify-center text-zinc-400 hover:bg-zinc-50 dark:hover:bg-white/5 transition-colors">
+      <ChevronLeft size={18} />
+    </button>
+    {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((p) => (
+      <button 
+        key={p}
+        className={cn(
+          "w-10 h-10 rounded-full text-xs font-bold transition-all",
+          p === 1 
+            ? "bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 shadow-lg scale-110" 
+            : "text-zinc-400 hover:bg-zinc-50 dark:hover:bg-white/5"
+        )}
+      >
+        {p}
+      </button>
+    ))}
+    <button className="w-10 h-10 rounded-full border border-zinc-100 dark:border-white/5 flex items-center justify-center text-zinc-400 hover:bg-zinc-50 dark:hover:bg-white/5 transition-colors">
+      <ChevronRight size={18} />
+    </button>
+  </nav>
+);
+
+// --- MAIN FEED ---
+
+export default function NewsFeed() {
+  const [limit, setLimit] = useState(6);
+  const [activeTag, setActiveTag] = useState('Todas');
+
+  const tags = [
+    { name: 'Todas', icon: < Globe2 size={12} /> },
+    { name: 'Economía', icon: <Landmark size={12} /> },
+    { name: 'Tecnología', icon: <Cpu size={12} /> },
+    { name: 'Política', icon: <ShieldCheck size={12} /> },
+  ];
+
+  const heroItems: NewsItem[] = Array.from({ length: 3 }).map((_, i) => ({
+    id: `hero-${i}`,
+    title: `Noticia Destacada ${i + 1}: Transformación del Mercado Cambiario`,
+    subtitle: 'Un análisis exhaustivo sobre los cambios regulatorios y el impacto en la soberanía informativa nacional.',
+    category: 'Economía',
+    image: `https://images.unsplash.com/photo-${1518546305927 + i}?auto=format&fit=crop&q=80`,
+    time: `${i + 1}h ago`,
+    datePublished: new Date().toISOString(),
+    author: "M&T Intelligence",
+    url: `/articulo/hero-${i}`
+  }));
+
+  const news: NewsItem[] = Array.from({ length: 12 }).map((_, i) => ({
+    id: `${i + 1}`,
+    title: `Reporte Especial: Dinámicas del Sector ${i + 1}`,
+    subtitle: 'Un análisis exhaustivo sobre los cambios regulatorios y el impacto en la soberanía informativa nacional.',
+    category: tags[i % tags.length].name,
+    image: `https://images.unsplash.com/photo-${1518546305927 + i + 10}?auto=format&fit=crop&q=80`,
+    time: `${i + 1}h ago`,
+    datePublished: new Date().toISOString(),
+    author: "M&T Intelligence",
+    url: `/articulo/${i + 1}`
+  }));
+
+  return (
+    <main className="min-h-screen bg-[#fcfcfc] dark:bg-zinc-950 px-6 lg:px-12 pb-32">
+      <HeaderClearance />
+      <NewsStructuredData items={[...heroItems, ...news]} />
+      
+      <div className="max-w-7xl mx-auto">
+        
+        {/* TOP SECTION: HERO CAROUSEL + SIDEBAR (80/20) */}
+        <section className="grid grid-cols-12 gap-8 mb-16">
+          <HeroCarousel items={heroItems} />
+          <Sidebar />
+        </section>
+
+        {/* DIVIDER + TAG SELECTOR */}
+        <div className="relative py-12 flex flex-col items-center">
+          <div className="absolute top-1/2 left-0 right-0 h-px bg-zinc-200 dark:bg-zinc-800 -z-10" />
+          <div className="bg-[#fcfcfc] dark:bg-zinc-950 px-8 flex items-center gap-4 overflow-x-auto no-scrollbar max-w-full">
+            {tags.map((tag) => (
+              <button
+                key={tag.name}
+                onClick={() => setActiveTag(tag.name)}
+                className={cn(
+                  "flex items-center gap-2.5 px-8 py-3 rounded-full text-[10px] font-black uppercase tracking-[0.2em] transition-all whitespace-nowrap border shadow-sm",
+                  activeTag === tag.name 
+                    ? "bg-zinc-900 border-zinc-900 text-white dark:bg-zinc-100 dark:border-zinc-100 dark:text-zinc-900 scale-105" 
+                    : "bg-white border-zinc-200 text-zinc-400 hover:border-zinc-400 dark:bg-zinc-900 dark:border-white/10 dark:text-zinc-500"
+                )}
+              >
+                {tag.icon}
+                {tag.name}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* GRID SECTION */}
+        <section className="space-y-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-16">
+            <AnimatePresence>
+              {news.slice(0, limit).map((item) => (
+                <NewsCard key={item.id} item={item} />
+              ))}
+            </AnimatePresence>
+          </div>
+
+          {/* VER MAS BUTTON */}
+          {limit < 12 && (
+            <div className="flex justify-center">
+              <button 
+                onClick={() => setLimit(12)}
+                className="group flex items-center gap-3 px-12 py-4 rounded-full border-2 border-zinc-900 dark:border-zinc-100 text-[11px] font-black uppercase tracking-[0.3em] hover:bg-zinc-900 hover:text-white dark:hover:bg-zinc-100 dark:hover:text-zinc-900 transition-all duration-300"
+              >
+                <Plus size={16} className="group-hover:rotate-90 transition-transform duration-500" />
+                Ver más noticias
+              </button>
             </div>
-         )}
+          )}
+
+          {/* PAGINATION (1-9) - ONLY VISIBLE AFTER EXPANDING */}
+          {limit >= 12 && <Pagination />}
+        </section>
       </div>
     </main>
   );
