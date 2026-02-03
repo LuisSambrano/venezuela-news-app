@@ -6,40 +6,38 @@ import Link from 'next/link';
 
 export function Footer() {
   return (
-    <footer className="w-full pb-6 px-4 flex justify-center z-10 pointer-events-none">
-      <div className="w-full max-w-4xl rounded-full glass-panel pointer-events-auto px-6 py-3 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-8 transition-all duration-300">
+    <footer className="w-full pb-phi-8 px-phi-5 flex justify-center z-10 pointer-events-none noise">
+      <div className="w-full max-w-5xl rounded-full glass-panel pointer-events-auto px-phi-8 py-phi-3 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-8 transition-all duration-500 border border-border/50 shadow-volumetric">
         
         {/* LEFT: Branding + Copyright */}
         <div className="flex items-center space-x-3 shrink-0">
-           <div className="w-6 h-6 rounded-full bg-foreground flex items-center justify-center">
+           <div className="w-6 h-6 rounded-full bg-foreground flex items-center justify-center shadow-lg">
              <span className="text-background font-black text-[8px]">M&T</span>
            </div>
-           <span className="font-black tracking-tighter text-xs uppercase text-foreground">© 2026</span>
+           <span className="font-black tracking-tighter text-xs uppercase text-foreground">© 2026 Nexus</span>
         </div>
 
         {/* CENTER: Social Networks (The 2026 Standard) */}
-        <div className="flex items-center gap-6 text-muted-foreground/80">
-           <a href="#" className="hover:text-foreground hover:scale-110 transition-all">
-             {/* X Logo (formerly Twitter) */}
+        <div className="flex items-center gap-8 text-muted-foreground/60">
+           <a href="#" className="hover:text-foreground hover:scale-125 transition-all duration-300">
              <svg viewBox="0 0 24 24" aria-hidden="true" className="w-4 h-4 fill-current">
                <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
              </svg>
            </a>
-           <a href="#" className="hover:text-foreground hover:scale-110 transition-all"><Linkedin size={16} /></a>
-           <a href="#" className="hover:text-foreground hover:scale-110 transition-all"><Instagram size={16} /></a>
-           <a href="#" className="hover:text-foreground hover:scale-110 transition-all"><Github size={16} /></a>
+           <a href="#" className="hover:text-foreground hover:scale-125 transition-all duration-300"><Linkedin size={16} /></a>
+           <a href="#" className="hover:text-foreground hover:scale-125 transition-all duration-300"><Instagram size={16} /></a>
+           <a href="#" className="hover:text-foreground hover:scale-125 transition-all duration-300"><Github size={16} /></a>
         </div>
 
         {/* RIGHT: Legal & Compliance */}
-        <div className="flex items-center space-x-6 shrink-0 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
-          <Link href="/legal/privacidad" className="hover:text-foreground transition-colors">Privacidad</Link>
-          <Link href="/legal/terminos" className="hover:text-foreground transition-colors">Términos</Link>
-          <Link href="/legal/cookies" className="hover:text-foreground transition-colors">Cookies</Link>
+        <div className="flex items-center space-x-8 shrink-0 text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground">
+          <Link href="/legal/privacidad" className="hover:text-foreground transition-all">Privacidad</Link>
+          <Link href="/legal/terminos" className="hover:text-foreground transition-all">Términos</Link>
           
-          <div className="w-px h-3 bg-border mx-2"></div>
+          <div className="w-px h-3 bg-border mx-2 opacity-50"></div>
           
-          <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="hover:text-foreground transition-colors group">
-            <ArrowUp size={14} className="group-hover:-translate-y-0.5 transition-transform" />
+          <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="hover:text-primary transition-all group p-2 rounded-full hover:bg-primary/5">
+            <ArrowUp size={14} className="group-hover:-translate-y-1 transition-transform" />
           </button>
         </div>
 
