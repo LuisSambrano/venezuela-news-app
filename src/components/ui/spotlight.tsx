@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import { useMotionTemplate, useMotionValue, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -16,8 +16,10 @@ export const Spotlight = ({
   const mouseY = useMotionValue(0);
 
   useEffect(() => {
-    const handleMouseMove = ({ currentTarget, clientX, clientY }: any) => {
-      let { left, top } = currentTarget.getBoundingClientRect();
+    const handleMouseMove = (event: MouseEvent) => {
+      const { currentTarget, clientX, clientY } = event;
+      if (!(currentTarget instanceof HTMLElement)) return;
+      const { left, top } = currentTarget.getBoundingClientRect();
       mouseX.set(clientX - left);
       mouseY.set(clientY - top);
     };
