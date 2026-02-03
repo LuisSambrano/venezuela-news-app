@@ -1,4 +1,4 @@
-[English](./README.md) | [Español](./README.es.md)
+[English](./README.md) | [Español](./README.es.md) | [Português](./README.pt.md)
 
 # Venezuela News App
 
