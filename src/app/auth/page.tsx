@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowLeft, ShieldCheck } from "lucide-react";
+import { useFormStatus } from "react-dom";
+import { login } from "./actions";
 
 export default function AuthPage() {
   return (
@@ -33,43 +35,56 @@ export default function AuthPage() {
           </div>
         </div>
 
-        <div className="space-y-4">
+        <form action={login} className="space-y-4">
             <div className="space-y-2">
                 <label className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground pl-1">Identificador</label>
                 <input 
+                  name="email"
                   type="email" 
                   placeholder="agente@mt-venezuela.com" 
-                  className="w-full h-12 rounded-xl glass px-4 text-sm outline-none focus:ring-2 focus:ring-electric-blue/50 transition-all placeholder:text-muted-foreground/50"
-                  disabled
+                  className="w-full h-12 rounded-xl glass px-4 text-sm outline-none focus:ring-2 focus:ring-electric-blue/50 transition-all placeholder:text-muted-foreground/50 text-foreground bg-transparent"
+                  required
                 />
             </div>
             <div className="space-y-2">
                 <label className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground pl-1">Llave de Acceso</label>
                 <input 
+                  name="password"
                   type="password" 
                   placeholder="••••••••••••" 
-                  className="w-full h-12 rounded-xl glass px-4 text-sm outline-none focus:ring-2 focus:ring-electric-blue/50 transition-all placeholder:text-muted-foreground/50"
-                  disabled
+                  className="w-full h-12 rounded-xl glass px-4 text-sm outline-none focus:ring-2 focus:ring-electric-blue/50 transition-all placeholder:text-muted-foreground/50 text-foreground bg-transparent"
+                  required
                 />
             </div>
-        </div>
 
-        <div className="space-y-4 pt-2">
-            <Button className="w-full h-11 rounded-full bg-electric-blue text-background font-bold tracking-wide hover:bg-electric-blue/90 transition-colors shadow-[0_0_20px_rgba(0,255,255,0.3)]">
-                <ShieldCheck className="w-4 h-4 mr-2" />
-                VERIFICAR CREDENCIALES
-            </Button>
-            
-            <Link href="/" className="flex items-center justify-center text-xs text-muted-foreground hover:text-foreground transition-colors group">
-                <ArrowLeft className="w-3 h-3 mr-1 group-hover:-translate-x-1 transition-transform" />
-                Volver a Operaciones
-            </Link>
-        </div>
+            <div className="space-y-4 pt-2">
+                <SubmitButton />
+                
+                <Link href="/" className="flex items-center justify-center text-xs text-muted-foreground hover:text-foreground transition-colors group">
+                    <ArrowLeft className="w-3 h-3 mr-1 group-hover:-translate-x-1 transition-transform" />
+                    Volver a Operaciones
+                </Link>
+            </div>
+        </form>
 
         <div className="absolute bottom-4 left-0 right-0 text-center">
             <span className="text-[9px] uppercase tracking-widest text-muted-foreground/30 font-mono">Protocolo Seguro v2.0</span>
         </div>
       </motion.div>
     </main>
+  );
+}
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+  return (
+    <Button 
+      type="submit" 
+      disabled={pending}
+      className="w-full h-11 rounded-full bg-electric-blue text-background font-bold tracking-wide hover:bg-electric-blue/90 transition-colors shadow-[0_0_20px_rgba(0,255,255,0.3)] disabled:opacity-70"
+    >
+      <ShieldCheck className="w-4 h-4 mr-2" />
+      {pending ? "VERIFICANDO..." : "VERIFICAR CREDENCIALES"}
+    </Button>
   );
 }
