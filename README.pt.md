@@ -1,146 +1,169 @@
-[English](./README.md) | [Español](./README.es.md) | [Português](./README.pt.md)
+<div align="center">
 
-# Venezuela News App
+<!-- HEADER HERO SECTION -->
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=0,9,11&height=180&section=header&text=M&T%20Venezuela&fontSize=42&fontColor=fff&animation=twinkling&fontAlignY=32&desc=Unidade%20de%20Inteligência%20Open%20Source&descSize=16&descAlignY=52"/>
 
-Plataforma de agregação de notícias em tempo real construída com Next.js 16, com curadoria de conteúdo impulsionada por IA, otimização SEO e um sistema de design glassmorphism moderno.
-
-<!-- CTAs -->
-<p align="center">
-  <a href="https://github.com/LuisSambrano/venezuela-news-app/stargazers"><img src="https://img.shields.io/github/stars/LuisSambrano/venezuela-news-app?style=flat-square" alt="Stars"/></a>
-  <a href="https://github.com/LuisSambrano/venezuela-news-app/network/members"><img src="https://img.shields.io/github/forks/LuisSambrano/venezuela-news-app?style=flat-square" alt="Forks"/></a>
-  <a href="https://github.com/LuisSambrano/venezuela-news-app/issues"><img src="https://img.shields.io/github/issues/LuisSambrano/venezuela-news-app?style=flat-square" alt="Issues"/></a>
-  <a href="https://github.com/LuisSambrano/venezuela-news-app/blob/main/LICENSE"><img src="https://img.shields.io/github/license/LuisSambrano/venezuela-news-app?style=flat-square" alt="License"/></a>
+<!-- BADGES -->
+<p>
+  <a href="#-início-rápido"><img src="https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js 16"/></a>
+  <a href="#-features"><img src="https://img.shields.io/badge/Supabase-Realtime-green?style=for-the-badge&logo=supabase" alt="Supabase"/></a>
+  <a href="#"><img src="https://img.shields.io/badge/Licença-BSL-red?style=for-the-badge&logo=opensourceinitiative" alt="Licença"/></a>
 </p>
 
-> [!IMPORTANT]
-> **Licencia**: Este proyecto está licenciado bajo [Business Source License 1.1](LICENSE).
-> Puedes ver y estudiar el código fuente con fines educativos, pero **el uso comercial requiere una licencia separada**.
-> Ver [LICENSE](LICENSE) para términos completos.
+<!-- SOCIAL PROOF -->
+<p>
+  <a href="https://github.com/LuisSambrano/venezuela-news-app/stargazers"><img src="https://img.shields.io/github/stars/LuisSambrano/venezuela-news-app?style=social" alt="Stars"/></a>
+  <a href="https://github.com/LuisSambrano/venezuela-news-app/network/members"><img src="https://img.shields.io/github/forks/LuisSambrano/venezuela-news-app?style=social" alt="Forks"/></a>
+</p>
 
-## Visão Geral
+<!-- LANGUAGE SWITCHER -->
+<p>
+  <strong>🌐 Idioma:</strong>
+  <a href="./README.md">English</a> •
+  <a href="./README.es.md">Español</a> •
+  <a href="./README.pt.md">Português</a>
+</p>
 
-Esta aplicação funciona como um portal de notícias abrangente focado em eventos atuais da Venezuela. Combina tecnologias web modernas com design UX cuidadoso para oferecer uma experiência de leitura rápida, acessível e visualmente atraente.
+<br/>
 
-A plataforma implementa um sistema sofisticado de entrega de conteúdo com atualizações em tempo real do Supabase, otimização SEO automática para conformidade com Google News, e design responsivo que se adapta perfeitamente de dispositivos móveis (375px) a desktop (1440px+).
+<!-- VALUE PROPOSITION -->
+<h3>🚀 Inteligência Informativa. Verificação em Tempo Real. Zero Censura.</h3>
 
-Construída com o App Router do Next.js 16 e Turbopack, a aplicação prioriza performance sem sacrificar qualidade visual. O sistema de design glassmorphism proporciona estética contemporânea mantendo padrões de acessibilidade WCAG 2.1 AA.
+<p>
+  <em>Uma abordagem forense ao jornalismo de dados.<br/>
+  Construído para velocidade, precisão e resistência em ambientes de alta latência.</em>
+</p>
 
-## Características
-
-### Entrega de Conteúdo
-
-- **Atualizações em Tempo Real**: Feed de notícias ao vivo com assinaturas Supabase
-- **Carrossel Hero**: Histórias em destaque com rotação automática e controles manuais (intervalo 5s)
-- **Paginação Inteligente**: Carregamento progressivo (6 → 12 → 18 artigos)
-- **Páginas de Detalhe**: Visualizações de conteúdo completo com histórias relacionadas
-
-### Sistema de Design
-
-- **Glassmorphism 2.0**: UI translúcida moderna com efeitos de desfoque
-- **Modo Escuro**: Troca de tema consciente do sistema com override manual
-- **Layout Responsivo**: Design mobile-first (375px a 1440px+)
-- **Acessibilidade**: Compatível com WCAG 2.1 AA com navegação por teclado
-
-### SEO e Performance
-
-- **Dados Estruturados**: JSON-LD completo de NewsArticle para Google News
-- **Meta Tags**: Otimização Open Graph e Twitter Card
-- **Otimização de Imagens**: Conversão automática WebP e lazy loading
-- **Code Splitting**: Divisão automática baseada em rotas
-- **Geração Estática**: Páginas pré-renderizadas para performance ótima
-
-## Stack Tecnológico
-
-![Next.js](https://img.shields.io/badge/Next.js_16-000000?style=flat&logo=next.js&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat&logo=typescript&logoColor=white)
-![React](https://img.shields.io/badge/React_19-61DAFB?style=flat&logo=react&logoColor=black)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS_v4-06B6D4?style=flat&logo=tailwind-css&logoColor=white)
-![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=flat&logo=supabase&logoColor=white)
-
-**Core**:
-
-- [Next.js 16](https://nextjs.org/) - Framework React com App Router
-- [TypeScript](https://www.typescriptlang.org/) - Desenvolvimento type-safe
-- [React 19](https://react.dev/) - Biblioteca de componentes UI
-
-**Estilos**:
-
-- [Tailwind CSS v4](https://tailwindcss.com/) - Framework CSS utility-first
-- [shadcn/ui](https://ui.shadcn.com/) - Primitivas de componentes acessíveis
-- [Framer Motion](https://www.framer.com/motion/) - Biblioteca de animações
-- [Lucide React](https://lucide.dev/) - Sistema de ícones
-
-**Backend**:
-
-- [Supabase](https://supabase.com/) - Banco de dados PostgreSQL com assinaturas em tempo real
-
-**Deploy**:
-
-- [Vercel](https://vercel.com/) - Deploy em rede edge
-
-## Primeiros Passos
-
-### Pré-requisitos
-
-- Node.js 18 ou superior
-- Gerenciador de pacotes npm ou pnpm
-- Conta Supabase (tier gratuito disponível)
-
-### Instalação
-
-1. **Clonar o repositório**:
-
-```bash
-git clone https://github.com/LuisSambrano/venezuela-news-app.git
-cd venezuela-news-app
-```
-
-2. **Instalar dependências**:
-
-```bash
-npm install
-# ou
-pnpm install
-```
-
-3. **Configurar variáveis de ambiente**:
-
-Criar um arquivo `.env.local` no diretório raiz:
-
-```env
-NEXT_PUBLIC_SUPABASE_URL=url_do_seu_projeto_supabase
-NEXT_PUBLIC_SUPABASE_ANON_KEY=chave_anon_supabase
-```
-
-4. **Executar servidor de desenvolvimento**:
-
-```bash
-npm run dev
-```
-
-5. **Abrir a aplicação**:
-
-Navegue para [http://localhost:3000](http://localhost:3000) no seu navegador.
-
-## Contribuir
-
-Contribuições são bem-vindas. Por favor siga estas diretrizes:
-
-1. Faça fork do repositório
-2. Crie uma branch de feature: `git checkout -b feature/descricao`
-3. Faça suas alterações com commits claros e atômicos
-4. Push para seu fork: `git push origin feature/descricao`
-5. Envie um pull request com descrição detalhada
-
-## Licença
-
-Licença MIT - Veja [LICENSE](LICENSE) para detalhes.
-
-## Links
-
-- **Repositório**: [github.com/LuisSambrano/venezuela-news-app](https://github.com/LuisSambrano/venezuela-news-app)
-- **Autor**: [Luis Sambrano](https://github.com/LuisSambrano)
+</div>
 
 ---
 
-[English](./README.md) | [Español](./README.es.md) | **Português**
+## ⚡ Início Rápido
+
+```bash
+# Clonar o repositório
+git clone https://github.com/LuisSambrano/venezuela-news-app.git
+
+# Instalar dependências (Next.js 16 & Tailwind v4)
+npm install
+
+# Configurar variáveis de ambiente
+cp .env.example .env.local
+
+# Iniciar o motor de inteligência
+npm run dev
+```
+
+**Pronto!** Acesse o terminal em `http://localhost:3000`. 📡
+
+---
+
+## 🛰️ Arquitetura do Sistema
+
+<table>
+<tr>
+<td width="50%">
+
+### 🧠 Stack Principal
+
+Engenharia de resiliência e performance:
+
+- **Framework**: [Next.js 16](https://nextjs.org) (App Router)
+- **Motor**: [React 19](https://react.dev) (Server Components)
+- **Estilos**: [Tailwind CSS v4](https://tailwindcss.com) + [shadcn/ui](https://ui.shadcn.com)
+- **Banco de Dados**: [Supabase](https://supabase.com) (PostgreSQL + RLS)
+- **Animação**: [Framer Motion](https://www.framer.com/motion/)
+
+</td>
+<td width="50%">
+
+### 🔒 Segurança e Privacidade
+
+Proteção de grau forense:
+
+- **Resistência à Censura**: Pronto para Edge deployment.
+- **Zero-Trust**: Segurança em Nível de Linha (RLS) obrigatória.
+- **Integridade de Dados**: Verificação em tempo real.
+- **Privacidade Primeiro**: Sem rastreadores invasivos.
+
+</td>
+</tr>
+</table>
+
+---
+
+## 📊 Funcionalidades
+
+<div align="center">
+
+|     Módulo      | Status | Capacidades                                           |
+| :-------------: | :----: | :---------------------------------------------------- |
+| 📰 **Notícias** |   ✅   | Ingestão em tempo real, Deduplicação, Análise         |
+| 📈 **Mercados** |   ✅   | Monitoramento econômico (Dólar, Crypto) < 1s latência |
+|   📱 **PWA**    |   ✅   | Capacidade Offline-first para ambientes desconectados |
+|  🎨 **UI/UX**   |   ✅   | Sistema de Design "Glass & Math" (Dark Mode Nativo)   |
+
+</div>
+
+---
+
+## 📁 Estrutura do Repositório
+
+```
+venezuela-news-app/
+├── 📄 README.md           ← Documentação em Inglês
+├── 📄 README.es.md        ← Documentação em Espanhol
+├── 📄 README.pt.md        ← Documentação em Português
+├── 📂 src/
+│   ├── 📂 app/            ← Next.js 16 App Router
+│   ├── 📂 components/     ← Sistema de Design Atômico
+│   │   ├── 📂 primitives/ ← Átomos UI Básicos
+│   │   └── 📂 effects/    ← Física Visual
+│   └── 📂 lib/            ← Utilitários e Cliente Supabase
+│
+└── 📂 docs/               ← Base de Conhecimento
+    ├── 📂 brain/          ← Auditorias Técnicas e Specs
+    └── 📂 brand-kit/      ← Filosofia de Design
+```
+
+---
+
+<div align="center">
+
+## 🌟 Dê uma Estrela
+
+Apoie a inteligência open-source independente.
+
+<a href="https://github.com/LuisSambrano/venezuela-news-app/stargazers">
+  <img src="https://img.shields.io/github/stars/LuisSambrano/venezuela-news-app?style=for-the-badge&logo=github&color=zinc" alt="Star on GitHub"/>
+</a>
+
+</div>
+
+---
+
+## 🤝 Contribuindo
+
+Agradecemos auditorias forenses e contribuições de código. Veja [CONTRIBUTING.md](CONTRIBUTING.md).
+
+```bash
+git checkout -b feature/modulo-seguro
+git commit -m 'feat: adicionar armazenamento criptografado'
+git push origin feature/modulo-seguro
+```
+
+---
+
+<div align="center">
+
+## 📬 Conectar
+
+<a href="https://github.com/LuisSambrano"><img src="https://img.shields.io/badge/GitHub-LuisSambrano-181717?style=for-the-badge&logo=github" alt="GitHub"/></a>
+
+<br/><br/>
+
+**Unidade de Inteligência M&T Venezuela**
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=0,9,11&height=100&section=footer"/>
+
+</div>
