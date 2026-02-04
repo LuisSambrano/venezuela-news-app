@@ -11,17 +11,18 @@ import Image from 'next/image';
 import { cn } from "@/lib/utils";
 import { HeaderClearance } from "@/components/layout/HeaderClearance";
 
+import { supabase } from '@/lib/supabase';
+
 // --- TYPES ---
 interface NewsItem {
   id: string;
   title: string;
   subtitle: string;
   category: string;
-  image: string;
-  time: string;
-  datePublished: string;
+  image_url: string;
+  published_at: string;
   author: string;
-  url: string;
+  slug: string;
 }
 
 // --- SEO STRUCTURED DATA COMPONENT ---
@@ -36,8 +37,8 @@ const NewsStructuredData = ({ items }: { items: NewsItem[] }) => {
         "@type": "NewsArticle",
         "headline": item.title,
         "description": item.subtitle,
-        "image": item.image,
-        "datePublished": item.datePublished,
+        "image": item.image_url,
+        "datePublished": item.published_at,
         "author": {
           "@type": "Person",
           "name": item.author
@@ -75,12 +76,14 @@ const HeroCarousel = ({ items }: { items: NewsItem[] }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
+    if (!items.length) return;
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % items.length);
     }, 5000);
     return () => clearInterval(interval);
   }, [items.length]);
 
+  if (!items.length) return null;
   const currentItem = items[currentIndex];
 
   return (
@@ -95,7 +98,7 @@ const HeroCarousel = ({ items }: { items: NewsItem[] }) => {
           className="absolute inset-0"
         >
           <Image 
-            src={currentItem.image} 
+            src={currentItem.image_url} 
             alt={currentItem.title}
             fill
             className="object-cover"
@@ -210,38 +213,52 @@ const Sidebar = () => (
   </aside>
 );
 
-const NewsCard = ({ item }: { item: NewsItem }) => (
-  <motion.article
-    layout
-    initial={{ opacity: 0, scale: 0.95 }}
-    animate={{ opacity: 1, scale: 1 }}
-    exit={{ opacity: 0, scale: 0.95 }}
-    viewport={{ once: true }}
-    className="flex flex-col gap-5 group cursor-pointer"
-  >
-    <div className="relative aspect-16/10 rounded-[24px] overflow-hidden border border-zinc-100 dark:border-white/5 shadow-md">
-      <Image 
-        src={item.image} 
-        alt={item.title}
-        fill
-        className="object-cover transition-transform duration-700 group-hover:scale-110"
-      />
-      <div className="absolute inset-0 bg-zinc-900/5 group-hover:bg-transparent transition-colors" />
-    </div>
-    <div className="space-y-3 px-1">
-      <div className="flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-zinc-400">
-        <span className="text-blue-600 dark:text-blue-400">{item.category}</span>
-        <span className="flex items-center gap-1.5"><Clock size={12} /> {item.time}</span>
+const NewsCard = ({ item }: { item: NewsItem }) => {
+  const timeAgo = (date: string) => {
+    try {
+      const seconds = Math.floor((new Date().getTime() - new Date(date).getTime()) / 1000);
+      if (seconds < 60) return 'Just now';
+      if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
+      if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`;
+      return `${Math.floor(seconds / 86400)}d ago`;
+    } catch {
+      return 'Recently';
+    }
+  };
+
+  return (
+    <motion.article
+      layout
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.95 }}
+      viewport={{ once: true }}
+      className="flex flex-col gap-5 group cursor-pointer"
+    >
+      <div className="relative aspect-16/10 rounded-[24px] overflow-hidden border border-zinc-100 dark:border-white/5 shadow-md">
+        <Image 
+          src={item.image_url} 
+          alt={item.title}
+          fill
+          className="object-cover transition-transform duration-700 group-hover:scale-110"
+        />
+        <div className="absolute inset-0 bg-zinc-900/5 group-hover:bg-transparent transition-colors" />
       </div>
-      <h3 className="text-xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 line-clamp-2 leading-[1.2] group-hover:text-blue-600 transition-colors">
-        {item.title}
-      </h3>
-      <p className="text-sm text-zinc-500 dark:text-zinc-400 line-clamp-2 leading-relaxed">
-        {item.subtitle}
-      </p>
-    </div>
-  </motion.article>
-);
+      <div className="space-y-3 px-1">
+        <div className="flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-zinc-400">
+          <span className="text-blue-600 dark:text-blue-400">{item.category}</span>
+          <span className="flex items-center gap-1.5"><Clock size={12} /> {timeAgo(item.published_at)}</span>
+        </div>
+        <h3 className="text-xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 line-clamp-2 leading-[1.2] group-hover:text-blue-600 transition-colors">
+          {item.title}
+        </h3>
+        <p className="text-sm text-zinc-500 dark:text-zinc-400 line-clamp-2 leading-relaxed">
+          {item.subtitle}
+        </p>
+      </div>
+    </motion.article>
+  );
+};
 
 const Pagination = () => (
   <nav className="flex items-center justify-center gap-2 pt-16">
@@ -272,6 +289,27 @@ const Pagination = () => (
 export default function NewsFeed() {
   const [limit, setLimit] = useState(6);
   const [activeTag, setActiveTag] = useState('Todas');
+  const [news, setNews] = useState<NewsItem[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchNews() {
+      try {
+        const { data, error } = await supabase
+          .from('articles')
+          .select('*')
+          .order('published_at', { ascending: false });
+
+        if (error) throw error;
+        setNews(data || []);
+      } catch (err) {
+        console.error('Error fetching news:', err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchNews();
+  }, []);
 
   const tags = [
     { name: 'Todas', icon: < Globe2 size={12} /> },
@@ -280,29 +318,18 @@ export default function NewsFeed() {
     { name: 'Política', icon: <ShieldCheck size={12} /> },
   ];
 
-  const heroItems: NewsItem[] = Array.from({ length: 3 }).map((_, i) => ({
-    id: `hero-${i}`,
-    title: `Noticia Destacada ${i + 1}: Transformación del Mercado Cambiario`,
-    subtitle: 'Un análisis exhaustivo sobre los cambios regulatorios y el impacto en la soberanía informativa nacional.',
-    category: 'Economía',
-    image: `https://images.unsplash.com/photo-${1518546305927 + i}?auto=format&fit=crop&q=80`,
-    time: `${i + 1}h ago`,
-    datePublished: new Date().toISOString(),
-    author: "M&T Intelligence",
-    url: `/articulo/hero-${i}`
-  }));
+  const filteredNews = activeTag === 'Todas' 
+    ? news 
+    : news.filter(item => item.category === activeTag);
 
-  const news: NewsItem[] = Array.from({ length: 12 }).map((_, i) => ({
-    id: `${i + 1}`,
-    title: `Reporte Especial: Dinámicas del Sector ${i + 1}`,
-    subtitle: 'Un análisis exhaustivo sobre los cambios regulatorios y el impacto en la soberanía informativa nacional.',
-    category: tags[i % tags.length].name,
-    image: `https://images.unsplash.com/photo-${1518546305927 + i + 10}?auto=format&fit=crop&q=80`,
-    time: `${i + 1}h ago`,
-    datePublished: new Date().toISOString(),
-    author: "M&T Intelligence",
-    url: `/articulo/${i + 1}`
-  }));
+  const heroItems = filteredNews.slice(0, 3);
+  const feedItems = filteredNews.slice(3);
+
+  if (loading) return (
+    <div className="min-h-screen flex items-center justify-center bg-[#fcfcfc] dark:bg-zinc-950">
+      <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
+    </div>
+  );
 
   return (
     <main className="min-h-screen bg-[#fcfcfc] dark:bg-zinc-950 px-6 lg:px-12 pb-32">
@@ -343,17 +370,17 @@ export default function NewsFeed() {
         <section className="space-y-16">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-16">
             <AnimatePresence>
-              {news.slice(0, limit).map((item) => (
+              {feedItems.slice(0, limit).map((item) => (
                 <NewsCard key={item.id} item={item} />
               ))}
             </AnimatePresence>
           </div>
 
           {/* VER MAS BUTTON */}
-          {limit < 12 && (
+          {limit < feedItems.length && (
             <div className="flex justify-center">
               <button 
-                onClick={() => setLimit(12)}
+                onClick={() => setLimit(prev => prev + 6)}
                 className="group flex items-center gap-3 px-12 py-4 rounded-full border-2 border-zinc-900 dark:border-zinc-100 text-[11px] font-black uppercase tracking-[0.3em] hover:bg-zinc-900 hover:text-white dark:hover:bg-zinc-100 dark:hover:text-zinc-900 transition-all duration-300"
               >
                 <Plus size={16} className="group-hover:rotate-90 transition-transform duration-500" />
@@ -362,8 +389,8 @@ export default function NewsFeed() {
             </div>
           )}
 
-          {/* PAGINATION (1-9) - ONLY VISIBLE AFTER EXPANDING */}
-          {limit >= 12 && <Pagination />}
+          {/* PAGINATION (1-9) - ONLY VISIBLE AFTER EXPANDING OR IF CONTENT IS LARGE */}
+          {feedItems.length > 24 && limit >= feedItems.length && <Pagination />}
         </section>
       </div>
     </main>
