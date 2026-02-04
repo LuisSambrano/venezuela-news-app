@@ -1,68 +1,55 @@
-# Arquitectura Técnica: Protocol Zero (2026)
+# Arquitectura de Diseño: Estándares de Visualización (2026)
 
-> _ "Nuestra identidad no es decorativa. Es una herramienta de precisión. En un mundo de ruido, la claridad es la única estética válida."_
+> _"La claridad es la única estética válida. Nuestra identidad no es decorativa; es funcional."_
 
-Este Brand Kit define los estándares para la implementación del sistema **Protocol Zero**, diseñado específicamente para la visualización de inteligencia de alta densidad. No buscamos "minimalismo" por moda, sino por **necesidad forense**.
+Este documento define los estándares visuales para el portal **M&T Venezuela**. El objetivo es la presentación de información compleja con máxima legibilidad y sobriedad, alineada con los estándares de periodismo de datos de alto nivel (como Bloomberg, Reuters, NYT).
 
-## 1. Filosofía Fundamental: Estética Forense
+## 1. Filosofía de Diseño: Periodismo de Precisión
 
-La arquitectura visual se rige por la necesidad de presentar datos complejos sin distorsión.
+La interfaz debe servir al contenido, eliminando cualquier distracción innecesaria.
 
-### A. Neutralidad Radical
+### A. Neutralidad Funcional
 
-- **Concepto**: La interfaz es Suiza. No tiene opinión.
-- **Ejecución**: El contenedor debe ser invisible para que el dato sea el protagonista innegable.
-- **Mandato**: Eliminamos el color como adorno. El color solo existe para señalar **estado** (Status) o **acción** (Vector).
+- **Concepto**: La interfaz es un contenedor neutral.
+- **Ejecución**: El diseño debe ser invisible para destacar la información.
+- **Uso del Color**: El color se utiliza exclusivamente para jerarquía semántica (categorías, alertas) y no como decoración.
 
-### B. Materialidad Óptica
+### B. Legibilidad y Estructura
 
-- **Concepto**: No usamos "ventanas", usamos "lentes".
-- **Ejecución**: La interfaz actúa como vidrio óptico que refracta y organiza la información subyacente.
-- **Estado**: No es decoración translúcida; es una capa que **filtra** el ruido y **enfoca** la señal.
+- **Concepto**: Organización lógica y jerárquica.
+- **Ejecución**: Uso de espacios en blanco y tipografía limpia para guiar la lectura.
+- **Cristal Funcional**: Elementos translúcidos (`glassmorphism`) utilizados sutilmente para mantener el contexto visual sin saturar, simulando capas de profundidad lógicas.
 
-### C. Física Newtoniana
+### C. Interacción Fluida
 
-- **Concepto**: Los objetos digitales tienen masa.
-- **Ejecución**: Las interacciones responden a la inercia y la fricción. Nada aparece de la nada; todo se desplaza, se expande o se revela con peso.
-
----
-
-## 2. Ingeniería de Superficies: Liquid Glass
-
-Evolucionamos la metáfora del vidrio hacia un material activo.
-
-### Especificaciones de Refracción
-
-Nuestras superficies no son meramente borrosas; simulan un **índice de refracción**.
-
-1.  **Concentración (Lensing)**: La luz se dobla alrededor de los datos activos.
-2.  **Densidad Variable**: Los paneles de navegación son más "densos" (menos transparentes) para anclar la vista.
-3.  **Bordes de Corte**: Usamos bordes de 1px con alta luminosidad para simular el canto de un cristal cortado con láser.
-
-### Variantes del Material
-
-- **`glass-structural`**: Para elementos fijos (Navs). Alta viscosidad visual.
-- **`glass-floating`**: Para elementos temporales (Toasts, Modales). Ligero y etéreo.
+- **Concepto**: Respuesta inmediata y predecible.
+- **Ejecución**: Transiciones suaves que mejoran la experiencia de usuario sin artificios excesivos.
 
 ---
 
-## 3. Identidad: "Anti-Generic"
+## 2. Superficies y Materiales
 
-Rechazamos los tropos del diseño SaaS moderno ("Cute", "Friendly", "Bouncy"). Somos **Serios, Técnicos y Atemporales**.
+Utilizamos un sistema de superficies moderno pero contenido.
 
-### La Paleta "Deep Truth"
+### Definición de Materiales
 
-- **Dominante (90%)**: Escala de Zinc. La verdad rara vez es blanca o negra pura; vive en los matices.
-- **Acento (10%)**: Solo usamos colores que se encuentran en la naturaleza o en señales de advertencia industrial. Nada de "neón de marketing".
-
-### El Fin del Negro Absoluto
-
-- **Principio**: El negro puro (`#000000`) es la ausencia de luz. Nuestra interfaz emite luz.
-- **Estándar**: Usamos `#09090b` como base ("Void"), permitiendo que las sombras proyectadas creen la ilusión de profundidad real.
+1.  **Surfaces (Superficies Base)**: Fondos oscuros profundos (`#09090b` - Zinc 950) para reducir la fatiga visual y proyectar seriedad.
+2.  **Paneles Estructurales**: Transparencias de alta densidad para elementos de navegación fijos.
+3.  **Capas Flotantes**: Transparencias sutiles para elementos modales o notificaciones.
 
 ---
 
-## Referencias Técnicas
+## 3. Identidad Visual: "Sobriedad Contemporánea"
 
-- **High-Fidelity Data Vis**: Principios de visualización técnica.
-- **Optical Physics**: Simulación de luz en interfaces digitales.
+Evitamos estéticas infantiles o excesivamente "gamificadas". Buscamos una presencia atemporal y autoritaria.
+
+### Paleta Cromática
+
+- **Base**: Escala de Grises y Zinc. Aporta neutralidad y elegancia.
+- **Acento**: Colores sobrios y funcionales para datos y estados, evitando neones saturados.
+- **Fondo**: No utilizamos negro puro (`#000000`) para evitar contrastes agresivos, prefiriendo tonos profundos (`#09090b`) que aportan profundidad.
+
+### Referencias Estilísticas
+
+- **Periodismo de Datos**: Claridad, gráficos precisos, tipografía editorial.
+- **Editorial High-End**: Espaciado generoso, fotografía cuidada.
