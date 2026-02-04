@@ -12,6 +12,11 @@ Plataforma de agregação de notícias em tempo real construída com Next.js 16,
   <a href="https://github.com/LuisSambrano/venezuela-news-app/blob/main/LICENSE"><img src="https://img.shields.io/github/license/LuisSambrano/venezuela-news-app?style=flat-square" alt="License"/></a>
 </p>
 
+> [!IMPORTANT]
+> **Licencia**: Este proyecto está licenciado bajo [Business Source License 1.1](LICENSE).
+> Puedes ver y estudiar el código fuente con fines educativos, pero **el uso comercial requiere una licencia separada**.
+> Ver [LICENSE](LICENSE) para términos completos.
+
 ## Visão Geral
 
 Esta aplicação funciona como um portal de notícias abrangente focado em eventos atuais da Venezuela. Combina tecnologias web modernas com design UX cuidadoso para oferecer uma experiência de leitura rápida, acessível e visualmente atraente.

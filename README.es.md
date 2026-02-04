@@ -4,6 +4,10 @@
 
 Plataforma de agregación de noticias en tiempo real construida con Next.js 16, con curación de contenido impulsada por IA, optimización SEO y un sistema de diseño glassmorphism moderno.
 
+> [!IMPORTANT]
+> **Licencia**: Este proyecto está bajo [Business Source License 1.1](LICENSE).
+> Puedes ver el código con fines educativos, pero **el uso comercial requiere licencia separada**.
+
 ## Descripción General
 
 Esta aplicación funciona como un portal de noticias integral enfocado en eventos actuales de Venezuela. Combina tecnologías web modernas con un diseño UX cuidadoso para ofrecer una experiencia de lectura rápida, accesible y visualmente atractiva.

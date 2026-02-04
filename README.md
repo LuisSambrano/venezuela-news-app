@@ -9,8 +9,13 @@ A real-time news aggregation platform built with Next.js 16, featuring AI-powere
   <a href="https://github.com/LuisSambrano/venezuela-news-app/stargazers"><img src="https://img.shields.io/github/stars/LuisSambrano/venezuela-news-app?style=flat-square" alt="Stars"/></a>
   <a href="https://github.com/LuisSambrano/venezuela-news-app/network/members"><img src="https://img.shields.io/github/forks/LuisSambrano/venezuela-news-app?style=flat-square" alt="Forks"/></a>
   <a href="https://github.com/LuisSambrano/venezuela-news-app/issues"><img src="https://img.shields.io/github/issues/LuisSambrano/venezuela-news-app?style=flat-square" alt="Issues"/></a>
-  <a href="https://github.com/LuisSambrano/venezuela-news-app/blob/main/LICENSE"><img src="https://img.shields.io/github/license/LuisSambrano/venezuela-news-app?style=flat-square" alt="License"/></a>
+  <a href="https://github.com/LuisSambrano/venezuela-news-app/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-BSL_1.1-blue?style=flat-square" alt="License"/></a>
 </p>
+
+> [!IMPORTANT]
+> **License**: This project is licensed under the [Business Source License 1.1](LICENSE).
+> You may view and study the source code for educational purposes, but **commercial use requires a separate license**.
+> See [LICENSE](LICENSE) for full terms.
 
 ## Overview
 
