@@ -105,6 +105,12 @@
     --radius-lg: 1.5rem; /* 24px */
     --radius-md: 0.75rem; /* 12px - Alias for compatibility */
     --radius-full: 9999px; /* Pill */
+
+    /* SEMANTIC TOKENS (LIGHT MODE) */
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(228, 228, 231, 0.6);
+    --glass-shine: rgba(255, 255, 255, 0.8);
+    --glass-shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.1);
   }
 
   .dark {
@@ -141,6 +147,12 @@
     /* AGENCY BRAND COLORS */
     --color-electric-blue: hsl(190 100% 50%); /* Cyan Neon */
     --color-venezuela-gold: hsl(45 100% 50%); /* Gold/Yellow */
+
+    /* SEMANTIC TOKENS (DARK MODE) */
+    --glass-bg: rgba(9, 9, 11, 0.4);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-shine: rgba(255, 255, 255, 0.05);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.36);
   }
 }
 
@@ -159,13 +171,29 @@
   }
 
   /* Typography Hierarchy enforcement */
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @apply font-semibold tracking-tighter text-foreground;
+  h1 {
+    @apply font-black tracking-tighter text-foreground;
+    font-size: var(--text-hero);
+    line-height: 1.1;
+  }
+  h2 {
+    @apply font-bold tracking-tight text-foreground;
+    font-size: var(--text-title);
+    line-height: 1.2;
+  }
+  h3 {
+    @apply font-semibold tracking-tight text-foreground;
+    font-size: var(--text-subtitle);
+  }
+  h4 {
+    @apply font-semibold text-foreground;
+    font-size: var(--text-body);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  h5, h6 {
+    @apply font-medium text-muted-foreground;
+    font-size: var(--text-caption);
   }
 
   p,
@@ -177,7 +205,20 @@
 
 /* GLASSMORPHISM UTILITIES (Refined) */
 .glass {
-  @apply bg-white/50 dark:bg-zinc-950/40 backdrop-blur-2xl border border-zinc-200 dark:border-white/10 shadow-sm dark:shadow-[0_8px_32px_0_rgba(0,0,0,0.36)];
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+.glass-hover {
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.glass-hover:hover {
+  background: var(--glass-shine);
+  border-color: var(--color-electric-blue);
+  box-shadow: 0 0 15px var(--color-electric-blue);
+  transform: translateY(-2px);
 }
 
 .glass-panel {

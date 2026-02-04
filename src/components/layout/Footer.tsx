@@ -11,8 +11,9 @@ export function Footer() {
         
         {/* LEFT: Branding + Copyright */}
         <div className="flex items-center space-x-3 shrink-0">
-           <div className="w-6 h-6 rounded-full bg-foreground flex items-center justify-center shadow-lg">
-             <span className="text-background font-black text-[8px]">M&T</span>
+           <div className="w-8 h-8 rounded-full border border-border/50 flex items-center justify-center bg-background shadow-lg relative overflow-hidden group">
+             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--color-electric-blue)_0%,transparent_70%)] opacity-20 group-hover:opacity-40 transition-opacity" />
+             <span className="font-black text-[9px] tracking-tighter text-foreground relative z-10">M&T</span>
            </div>
            <span className="font-black tracking-tighter text-xs uppercase text-foreground">© 2026 Nexus</span>
         </div>

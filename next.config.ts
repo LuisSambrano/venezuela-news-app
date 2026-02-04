@@ -1,4 +1,7 @@
-const withPWA = require("@ducanh2912/next-pwa").default({
+import withPWAInit from "@ducanh2912/next-pwa";
+import type { NextConfig } from "next";
+
+const withPWA = withPWAInit({
   dest: "public",
   disable: process.env.NODE_ENV === "development",
   register: true,
@@ -6,10 +9,9 @@ const withPWA = require("@ducanh2912/next-pwa").default({
   sw: "service-worker.js",
 });
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig: NextConfig = {
   reactStrictMode: true,
-  turbopack: {}, // Silence Turbopack warning in Next.js 16
+  turbopack: {},
   images: {
     remotePatterns: [
       {
@@ -24,4 +26,4 @@ const nextConfig = {
   },
 };
 
-module.exports = withPWA(nextConfig);
+export default withPWA(nextConfig);

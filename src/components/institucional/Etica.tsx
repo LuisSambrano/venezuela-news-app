@@ -7,7 +7,7 @@ export default function EticaComponent() {
       <HeaderClearance />
       <header className="space-y-8 max-w-5xl mx-auto">
          <h1 className="text-6xl md:text-[120px] font-black uppercase tracking-tighter leading-none italic">Código Ética</h1>
-         <p className="text-3xl font-light text-zinc-500 dark:text-zinc-400 italic leading-tight">"La verdad técnica por encima de cualquier agenda política o institucional".</p>
+         <p className="text-3xl font-light text-zinc-500 dark:text-zinc-400 italic leading-tight">&quot;La verdad técnica por encima de cualquier agenda política o institucional&quot;.</p>
       </header>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-12 pt-16 text-left">
          {["Independencia", "Seguridad", "Integridad"].map((title, i) => (

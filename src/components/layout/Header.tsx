@@ -15,13 +15,12 @@ export function Header() {
 
   return (
     <header className="fixed top-8 left-0 right-0 z-50 flex justify-center px-4">
-      <nav className="flex items-center justify-between w-full max-w-6xl h-16 px-8 rounded-full border border-zinc-200/50 dark:border-white/10 bg-white/70 dark:bg-zinc-950/70 backdrop-blur-2xl shadow-sm">
+      <nav className="flex items-center justify-between w-full max-w-6xl h-16 px-8 rounded-full glass">
         {/* LOGO */}
         <Link href="/" className="flex items-center gap-4 group">
-          <div className="w-10 h-10 rounded-full border border-zinc-200 dark:border-white/10 flex items-center justify-center bg-white dark:bg-zinc-900 shadow-sm transition-transform group-hover:scale-105">
-             <div className="w-6 h-6 rounded-full border-[1.5px] border-zinc-300 dark:border-zinc-700 flex items-center justify-center">
-                <div className="w-2 h-2 rounded-full bg-zinc-400 dark:bg-zinc-600" />
-             </div>
+          <div className="w-10 h-10 rounded-full border border-zinc-200 dark:border-white/10 flex items-center justify-center bg-white dark:bg-zinc-900 shadow-sm transition-transform group-hover:scale-105 overflow-hidden relative">
+             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--color-electric-blue)_0%,transparent_70%)] opacity-20" />
+             <span className="font-black text-[10px] tracking-tighter text-zinc-900 dark:text-white relative z-10">M&T</span>
           </div>
           <div className="flex flex-col">
             <span className="font-bold tracking-tight text-base text-zinc-800 dark:text-zinc-100 italic">M&TVenezuela</span>

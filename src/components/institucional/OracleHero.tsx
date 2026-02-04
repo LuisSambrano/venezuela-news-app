@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { Globe, ArrowDown, ShieldAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -75,21 +76,25 @@ export default function OracleHero() {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="flex flex-col sm:flex-row gap-4 pt-4"
         >
-          <Button 
-            size="lg" 
-            className="bg-electric-blue text-background hover:bg-electric-blue/80 font-bold tracking-wide shadow-[0_0_20px_rgba(0,255,255,0.3)]"
-          >
-            <Globe className="mr-2 h-4 w-4" />
-            EXPLORAR INTELIGENCIA
-          </Button>
-          <Button 
-            size="lg" 
-            variant="outline" 
-            className="border-white/20 text-white hover:bg-white/10 hover:text-electric-blue transition-colors duration-300"
-          >
-            <ShieldAlert className="mr-2 h-4 w-4" />
-            REGISTRO DE PRISIONEROS
-          </Button>
+          <Link href="/noticias">
+            <Button 
+              size="lg" 
+              className="bg-electric-blue text-background hover:bg-electric-blue/80 font-bold tracking-wide shadow-[0_0_20px_rgba(0,255,255,0.3)]"
+            >
+              <Globe className="mr-2 h-4 w-4" />
+              EXPLORAR INTELIGENCIA
+            </Button>
+          </Link>
+          <Link href="/registro-central">
+            <Button 
+              size="lg" 
+              variant="outline" 
+              className="border-white/20 text-white hover:bg-white/10 hover:text-electric-blue transition-colors duration-300"
+            >
+              <ShieldAlert className="mr-2 h-4 w-4" />
+              REGISTRO DE PRISIONEROS
+            </Button>
+          </Link>
         </motion.div>
       </div>
 
