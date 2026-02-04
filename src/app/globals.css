@@ -27,7 +27,7 @@
   --font-mono: var(--font-mono);
 
   /* 
-    PROTOCOL ZERO: QUANTUM MATHEMATICAL CORE
+    DESIGN SYSTEM: MODULAR SCALE CORE
     Based on Phi (φ ≈ 1.618) and Fluid Geometry
   */
 
@@ -153,7 +153,7 @@
     scroll-snap-type: y proximity; /* Hybrid Snap: Magnetism without Jail */
   }
   body {
-    /* Global Apple Vibe Enforcement */
+    /* Global Design System Enforcement */
     @apply bg-background text-foreground antialiased selection:bg-white/20 selection:text-white;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02"; /* Cleaner glyphs */
   }

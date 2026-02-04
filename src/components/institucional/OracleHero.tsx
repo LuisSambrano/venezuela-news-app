@@ -45,7 +45,7 @@ export default function OracleHero() {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-venezuela-gold opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-venezuela-gold"></span>
           </span>
-          <span>System Online: Intelligence Node Active</span>
+          <span>System Status: Optimal | Live Feed</span>
         </motion.div>
 
         <motion.h1
