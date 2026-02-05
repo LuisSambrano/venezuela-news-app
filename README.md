@@ -158,7 +158,7 @@ This project follows a **Research-First** methodology. All strategic decisions a
 | [prompts/](./research/prompts/)               | Investigation modules with tracking |
 | [docs/brain/](./docs/brain/)                  | Original research documents         |
 
-> 💡 **For AIs**: Read `KEY_FINDINGS.md` first for maximum context on decisions and architecture.
+> **Executive Summary**: See [KEY_FINDINGS.md](./research/KEY_FINDINGS.md) for distilled insights and architectural decisions.
 
 ---
 

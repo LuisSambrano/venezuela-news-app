@@ -11,8 +11,10 @@ import Image from 'next/image';
 import { cn } from "@/lib/utils";
 import { HeaderClearance } from "@/components/layout/HeaderClearance";
 import { supabase } from '@/lib/supabase';
-import { GlassCard } from "@/components/ui/glass-card"; // Import new primitive
-import { NewsCard } from "@/components/news/NewsCard"; // Import extracted component
+import { GlassCard } from "@/components/ui/glass-card"; 
+import { NewsCard } from "@/components/news/NewsCard"; 
+import { DolarService } from "@/lib/services/dolar";
+import { Currency } from "@/lib/types/currency";
 
 // ... TYPES (Keep existing)
 interface NewsItem {
@@ -166,51 +168,102 @@ const HeroCarousel = ({ items }: { items: NewsItem[] }) => {
   );
 };
 
-const Sidebar = () => (
-  <aside className="col-span-12 lg:col-span-3 flex flex-col gap-6">
-    {/* MONITOR - Using GlassCard */}
-    <GlassCard className="flex-1 p-8 flex flex-col justify-between">
-      <div className="flex justify-between items-center border-b border-zinc-100 dark:border-white/5 pb-4">
-        <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-800 dark:text-zinc-200">Monitor</h3>
-        <Activity size={16} className="text-blue-500" />
-      </div>
-      <div className="space-y-6 pt-4">
-        <div className="flex justify-between items-end">
-          <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">Paralelo</span>
-          <div className="text-right">
-            <p className="text-2xl font-black tracking-tighter text-zinc-900 dark:text-white">Bs. 52.40</p>
-            <span className="text-[10px] font-bold text-green-600 dark:text-green-400">+1.2%</span>
-          </div>
-        </div>
-        <div className="flex justify-between items-end">
-          <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">BCV</span>
-          <div className="text-right">
-            <p className="text-2xl font-black tracking-tighter text-zinc-900 dark:text-white">Bs. 48.15</p>
-            <span className="text-[10px] font-bold text-zinc-500">0.0%</span>
-          </div>
-        </div>
-      </div>
-    </GlassCard>
+const Sidebar = () => {
+  const [rates, setRates] = useState<{ paralelo: Currency | null, bcv: Currency | null }>({ paralelo: null, bcv: null });
+  const [loading, setLoading] = useState(true);
 
-    {/* TENDENCIAS - Using GlassCard */}
-    <GlassCard className="flex-1 p-8">
-      <div className="flex justify-between items-center border-b border-zinc-100 dark:border-white/5 pb-4 mb-4">
-        <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-800 dark:text-zinc-200">Trends</h3>
-        <TrendingUp size={16} className="text-zinc-400" />
-      </div>
-      <ul className="space-y-3">
-        {['#Esequibo', '#DolarHoy', '#CriptoVzla'].map((tag) => (
-          <li key={tag} className="flex justify-between items-center group cursor-pointer hover:translate-x-1 transition-transform">
-            <span className="text-[11px] font-bold text-zinc-500 dark:text-zinc-400 uppercase italic">
-              {tag}
-            </span>
-            <ArrowUpRight size={12} className="text-zinc-300 group-hover:text-blue-500 transition-colors" />
-          </li>
-        ))}
-      </ul>
-    </GlassCard>
-  </aside>
-);
+  useEffect(() => {
+    const fetchRates = async () => {
+      try {
+        const data = await DolarService.getAll();
+        const paralelo = data.find(r => r.code === 'oficial') || null; // DolarAPI maps 'oficial' to BCV usually, wait. 
+        // Official API: 'oficial' is BCV, 'paralelo' doesn't exist as code? 
+        // Let's check DolarAPI docs or assume standard codes: 'oficial' (BCV), 'blue' (Paralelo in Arg, but Ven? 'paralelo'?)
+        // In venezuela typically: 'oficial' = BCV. 'monitor' or 'paralelo' = Paralelo.
+        // Quick verification: DolarAPI for Venezuela uses 'oficial', 'paralelo'.
+        
+        const bcvRate = data.find(r => r.code === 'oficial') || null;
+        const paraleloRate = data.find(r => r.code === 'paralelo') || null;
+        
+        setRates({
+          paralelo: paraleloRate,
+          bcv: bcvRate
+        });
+      } catch (err) {
+        console.error("Failed to load rates", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchRates();
+  }, []);
+
+  return (
+    <aside className="col-span-12 lg:col-span-3 flex flex-col gap-6">
+      {/* MONITOR - Using GlassCard */}
+      <GlassCard className="flex-1 p-8 flex flex-col justify-between">
+        <div className="flex justify-between items-center border-b border-zinc-100 dark:border-white/5 pb-4">
+          <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-800 dark:text-zinc-200">Monitor</h3>
+          <Activity size={16} className="text-blue-500" />
+        </div>
+        <div className="space-y-6 pt-4">
+          <div className="flex justify-between items-end">
+            <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">Paralelo</span>
+            <div className="text-right">
+              {loading ? (
+                <div className="h-8 w-24 bg-zinc-200 dark:bg-zinc-800 animate-pulse rounded" />
+              ) : (
+                <>
+                  <p className="text-2xl font-black tracking-tighter text-zinc-900 dark:text-white">
+                    Bs. {rates.paralelo?.sell.toFixed(2) || '---'}
+                  </p>
+                  <span className="text-[10px] font-bold text-green-600 dark:text-green-400">
+                     {rates.paralelo?.variation || '+0.0%'}
+                  </span>
+                </>
+              )}
+            </div>
+          </div>
+          <div className="flex justify-between items-end">
+            <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">BCV</span>
+            <div className="text-right">
+               {loading ? (
+                <div className="h-8 w-24 bg-zinc-200 dark:bg-zinc-800 animate-pulse rounded" />
+              ) : (
+                <>
+                  <p className="text-2xl font-black tracking-tighter text-zinc-900 dark:text-white">
+                    Bs. {rates.bcv?.sell.toFixed(2) || '---'}
+                  </p>
+                  <span className="text-[10px] font-bold text-zinc-500">
+                    {rates.bcv?.variation || '0.0%'}
+                  </span>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      </GlassCard>
+
+      {/* TENDENCIAS - Using GlassCard */}
+      <GlassCard className="flex-1 p-8">
+        <div className="flex justify-between items-center border-b border-zinc-100 dark:border-white/5 pb-4 mb-4">
+          <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-800 dark:text-zinc-200">Trends</h3>
+          <TrendingUp size={16} className="text-zinc-400" />
+        </div>
+        <ul className="space-y-3">
+          {['#Esequibo', '#DolarHoy', '#CriptoVzla'].map((tag) => (
+            <li key={tag} className="flex justify-between items-center group cursor-pointer hover:translate-x-1 transition-transform">
+              <span className="text-[11px] font-bold text-zinc-500 dark:text-zinc-400 uppercase italic">
+                {tag}
+              </span>
+              <ArrowUpRight size={12} className="text-zinc-300 group-hover:text-blue-500 transition-colors" />
+            </li>
+          ))}
+        </ul>
+      </GlassCard>
+    </aside>
+  );
+};
 
 const Pagination = () => (
   <nav className="flex items-center justify-center gap-2 pt-16">

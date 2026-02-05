@@ -158,7 +158,7 @@ Este projeto segue uma metodologia **Research-First**. Todas as decisões estrat
 | [prompts/](./research/prompts/)               | Módulos de investigação com tracking |
 | [docs/brain/](./docs/brain/)                  | Documentos originais de pesquisa     |
 
-> 💡 **Para IAs**: Leia `KEY_FINDINGS.md` primeiro para contexto máximo sobre decisões e arquitetura.
+> **Resumo Executivo**: Veja [KEY_FINDINGS.md](./research/KEY_FINDINGS.md) para insights destilados e decisões arquitetônicas.
 
 ---
 
