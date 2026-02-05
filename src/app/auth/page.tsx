@@ -85,7 +85,7 @@ function AuthForm() {
             </div>
         )}
 
-        {/* GOOGLE BUTTON */}
+        {/* GOOGLE BUTTON TEMPORARILY DISABLED 
         <Button 
             onClick={handleGoogleLogin} 
             variant="outline" 
@@ -125,6 +125,7 @@ function AuthForm() {
                 <span className="bg-background px-2 text-muted-foreground">O continúa con email</span>
             </div>
         </div>
+        */}
 
         <form action={mode === "login" ? login : signup} className="space-y-4">
             {mode === "signup" && (
