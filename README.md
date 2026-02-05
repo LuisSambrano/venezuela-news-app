@@ -1,7 +1,7 @@
 <div align="center">
 
 <!-- HEADER HERO SECTION -->
-<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=0,9,11&height=180&section=header&text=M&T%20Venezuela&fontSize=42&fontColor=fff&animation=twinkling&fontAlignY=32&desc=Open%20Source%20Intelligence%20Unit&descSize=16&descAlignY=52"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=0,9,11&height=180&section=header&text=M&T%20Venezuela&fontSize=42&fontColor=fff&animation=twinkling&fontAlignY=32&desc=High-Availability%20News%20Platform&descSize=16&descAlignY=52"/>
 
 <!-- BADGES -->
 <p>
@@ -27,11 +27,11 @@
 <br/>
 
 <!-- VALUE PROPOSITION -->
-<h3>🚀 Informational Intelligence. Real-Time Verification. Zero Censorship.</h3>
+<h3>🚀 Real-Time News & Data Aggregation.</h3>
 
 <p>
-  <em>A forensic approach to data journalism.<br/>
-  Built for speed, accuracy, and resistance in high-latency environments.</em>
+  <em>A scalable, resilient platform for information distribution.<br/>
+  Optimized for high-latency environments with offline-first capabilities.</em>
 </p>
 
 </div>
@@ -50,7 +50,7 @@ npm install
 # Setup environment variables
 cp .env.example .env.local
 
-# Run the intelligence engine
+# Run the development server
 npm run dev
 ```
 
@@ -79,12 +79,12 @@ Engineered for resilience and performance:
 
 ### 🔒 Security & Privacy
 
-Forensic-grade protection:
+Enterprise-grade protection:
 
-- **Censorship Resistant**: Edge deployment ready.
+- **Edge Ready**: Deployed to Vercel Edge Network.
 - **Zero-Trust**: Mandatory Row Level Security (RLS).
-- **Data Integrity**: Real-time verification.
-- **Privacy First**: No invading trackers.
+- **Data Integrity**: Real-time validation.
+- **Privacy First**: No tracking pixels.
 
 </td>
 </tr>
@@ -96,12 +96,12 @@ Forensic-grade protection:
 
 <div align="center">
 
-|      Module      | Status | Capabilities                                           |
-| :--------------: | :----: | :----------------------------------------------------- |
-| 📰 **News Feed** |   ✅   | Real-time ingestion, Deduplication, Source Analysis    |
-|   📈 **Index**   |   ✅   | Economic monitoring (Dolar, Crypto) with < 1s latency  |
-|    📱 **PWA**    |   ✅   | Offline-first capability for disconnected environments |
-|   🎨 **UI/UX**   |   ✅   | "Glass & Math" Design System (Dark Mode Native)        |
+|      Module      | Status | Capabilities                                            |
+| :--------------: | :----: | :------------------------------------------------------ |
+| 📰 **News Feed** |   ✅   | Real-time ingestion, Deduplication, Tagging System      |
+|   📈 **Index**   |   ✅   | Economic monitoring (Currency, Crypto) with low latency |
+|    📱 **PWA**    |   ✅   | Offline-first capability for disconnected environments  |
+|   🎨 **UI/UX**   |   ✅   | "Glassmorphism" Design System (Dark Mode Native)        |
 
 </div>
 
@@ -115,15 +115,9 @@ venezuela-news-app/
 ├── 📄 README.es.md        ← Documentación en Español
 ├── 📄 README.pt.md        ← Documentação em Português
 ├── 📂 src/
-│   ├── 📂 app/            ← Next.js 16 App Router
-│   ├── 📂 components/     ← Atomic Design System
-│   │   ├── 📂 primitives/ ← Basic UI Atoms
-│   │   └── 📂 effects/    ← Visual Physics
-│   └── 📂 lib/            ← Utils & Supabase Client
-│
-└── 📂 docs/               ← Knowledge Base
-    ├── 📂 brain/          ← Technical Audits & Specs
-    └── 📂 brand-kit/      ← Design Philosophy
+├── 📂 docs/               ← Technical Documentation
+├── 📄 DOCS.md             ← Central Documentation Hub
+└── 📂 lib/
 ```
 
 ---
@@ -132,7 +126,7 @@ venezuela-news-app/
 
 ## 🌟 Star This Repo
 
-Support independent, open-source intelligence.
+Support independent, open-source development.
 
 <a href="https://github.com/LuisSambrano/venezuela-news-app/stargazers">
   <img src="https://img.shields.io/github/stars/LuisSambrano/venezuela-news-app?style=for-the-badge&logo=github&color=zinc" alt="Star on GitHub"/>
@@ -144,7 +138,7 @@ Support independent, open-source intelligence.
 
 ## 🤝 Contributing
 
-We welcome forensic audits and code contributions. See [CONTRIBUTING.md](CONTRIBUTING.md).
+We welcome code contributions. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ```bash
 git checkout -b feature/secure-module
@@ -162,7 +156,7 @@ git push origin feature/secure-module
 
 <br/><br/>
 
-**M&T Venezuela Intelligence Unit**
+**M&T Venezuela Project**
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=0,9,11&height=100&section=footer"/>
 

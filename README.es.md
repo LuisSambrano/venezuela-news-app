@@ -1,18 +1,18 @@
 <div align="center">
 
 <!-- HEADER HERO SECTION -->
-<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=0,9,11&height=180&section=header&text=M&T%20Venezuela&fontSize=42&fontColor=fff&animation=twinkling&fontAlignY=32&desc=Unidad%20de%20Inteligencia%20Open%20Source&descSize=16&descAlignY=52"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=0,9,11&height=180&section=header&text=M&T%20Venezuela&fontSize=42&fontColor=fff&animation=twinkling&fontAlignY=32&desc=Plataforma%20de%20Noticias%20de%20Alta%20Disponibilidad&descSize=16&descAlignY=52"/>
 
 <!-- BADGES -->
 <p>
-  <a href="#-inicio-rápido"><img src="https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js 16"/></a>
-  <a href="#-features"><img src="https://img.shields.io/badge/Supabase-Realtime-green?style=for-the-badge&logo=supabase" alt="Supabase"/></a>
+  <a href="#-inicio-rárpido"><img src="https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js 16"/></a>
+  <a href="#-características"><img src="https://img.shields.io/badge/Supabase-Realtime-green?style=for-the-badge&logo=supabase" alt="Supabase"/></a>
   <a href="#"><img src="https://img.shields.io/badge/Licencia-BSL-red?style=for-the-badge&logo=opensourceinitiative" alt="Licencia"/></a>
 </p>
 
 <!-- SOCIAL PROOF -->
 <p>
-  <a href="https://github.com/LuisSambrano/venezuela-news-app/stargazers"><img src="https://img.shields.io/github/stars/LuisSambrano/venezuela-news-app?style=social" alt="Stars"/></a>
+  <a href="https://github.com/LuisSambrano/venezuela-news-app/stargazers"><img src="https://img.shields.io/github/stars/LuisSambrano/venezuela-news-app?style=social" alt="Estrellas"/></a>
   <a href="https://github.com/LuisSambrano/venezuela-news-app/network/members"><img src="https://img.shields.io/github/forks/LuisSambrano/venezuela-news-app?style=social" alt="Forks"/></a>
 </p>
 
@@ -27,11 +27,11 @@
 <br/>
 
 <!-- VALUE PROPOSITION -->
-<h3>🚀 Inteligencia Informativa. Verificación en Tiempo Real. Cero Censura.</h3>
+<h3>🚀 Agregación de Noticias y Datos en Tiempo Real.</h3>
 
 <p>
-  <em>Un enfoque forense al periodismo de datos.<br/>
-  Construido para velocidad, precisión y resistencia en entornos de alta latencia.</em>
+  <em>Una plataforma escalable y resiliente para la distribución de información.<br/>
+  Optimizada para entornos de alta latencia con capacidades offline-first.</em>
 </p>
 
 </div>
@@ -44,13 +44,13 @@
 # Clonar el repositorio
 git clone https://github.com/LuisSambrano/venezuela-news-app.git
 
-# Instalar dependencias (Next.js 16 & Tailwind v4)
+# Instalar dependencias (Incluye Next.js 16 & Tailwind v4)
 npm install
 
 # Configurar variables de entorno
 cp .env.example .env.local
 
-# Iniciar el motor de inteligencia
+# Ejecutar servidor de desarrollo
 npm run dev
 ```
 
@@ -66,7 +66,7 @@ npm run dev
 
 ### 🧠 Stack Principal
 
-Ingeniería de resiliencia y rendimiento:
+Diseñado para resiliencia y rendimiento:
 
 - **Framework**: [Next.js 16](https://nextjs.org) (App Router)
 - **Motor**: [React 19](https://react.dev) (Server Components)
@@ -79,12 +79,12 @@ Ingeniería de resiliencia y rendimiento:
 
 ### 🔒 Seguridad y Privacidad
 
-Protección de grado forense:
+Protección de grado empresarial:
 
-- **Resistencia a Censura**: Listo para Edge deployment.
-- **Zero-Trust**: Seguridad a Nivel de Fila (RLS) mandatoria.
-- **Integridad de Datos**: Verificación en tiempo real.
-- **Privacidad Primero**: Sin rastreadores invasivos.
+- **Edge Ready**: Desplegado en Vercel Edge Network.
+- **Zero-Trust**: Row Level Security (RLS) obligatorio.
+- **Integridad de Datos**: Validación en tiempo real.
+- **Privacidad Primero**: Sin trackers invasivos.
 
 </td>
 </tr>
@@ -96,12 +96,12 @@ Protección de grado forense:
 
 <div align="center">
 
-|     Módulo      | Estado | Capacidades                                         |
-| :-------------: | :----: | :-------------------------------------------------- |
-| 📰 **Noticias** |   ✅   | Ingesta en tiempo real, Deduplicación, Análisis     |
-| 📈 **Mercados** |   ✅   | Monitoreo económico (Dólar, Crypto) < 1s latencia   |
-|   📱 **PWA**    |   ✅   | Capacidad Offline-first para entornos desconectados |
-|  🎨 **UI/UX**   |   ✅   | Sistema de Diseño "Glass & Math" (Dark Mode Nativo) |
+|     Módulo      | Estado | Capacidades                                          |
+| :-------------: | :----: | :--------------------------------------------------- |
+| 📰 **Noticias** |   ✅   | Ingesta real-time, Deduplicación, Sistema de Tags    |
+|  📈 **Índice**  |   ✅   | Monitoreo económico (Divisas, Cripto) baja latencia  |
+|   📱 **PWA**    |   ✅   | Capacidad Offline-first para entornos desconectados  |
+|  🎨 **UI/UX**   |   ✅   | Sistema de Diseño "Glassmorphism" (Nativo Dark Mode) |
 
 </div>
 
@@ -113,29 +113,23 @@ Protección de grado forense:
 venezuela-news-app/
 ├── 📄 README.md           ← Documentación en Inglés
 ├── 📄 README.es.md        ← Documentación en Español
-├── 📄 README.pt.md        ← Documentação em Português
+├── 📄 README.pt.md        ← Documentación en Portugués
 ├── 📂 src/
-│   ├── 📂 app/            ← Next.js 16 App Router
-│   ├── 📂 components/     ← Sistema de Diseño Atómico
-│   │   ├── 📂 primitives/ ← Átomos UI Básicos
-│   │   └── 📂 effects/    ← Física Visual
-│   └── 📂 lib/            ← Utilidades y Cliente Supabase
-│
-└── 📂 docs/               ← Base de Conocimiento
-    ├── 📂 brain/          ← Auditorías Técnicas y Specs
-    └── 📂 brand-kit/      ← Filosofía de Diseño
+├── 📂 docs/               ← Documentación Técnica
+├── 📄 DOCS.md             ← Centro de Documentación
+└── 📂 lib/
 ```
 
 ---
 
 <div align="center">
 
-## 🌟 Dê una Estrella
+## 🌟 Dale una Estrella
 
-Apoya la inteligencia open-source independiente.
+Apoya el desarrollo open-source independiente.
 
 <a href="https://github.com/LuisSambrano/venezuela-news-app/stargazers">
-  <img src="https://img.shields.io/github/stars/LuisSambrano/venezuela-news-app?style=for-the-badge&logo=github&color=zinc" alt="Star on GitHub"/>
+  <img src="https://img.shields.io/github/stars/LuisSambrano/venezuela-news-app?style=for-the-badge&logo=github&color=zinc" alt="Estrella en GitHub"/>
 </a>
 
 </div>
@@ -144,12 +138,12 @@ Apoya la inteligencia open-source independiente.
 
 ## 🤝 Contribuir
 
-Agradecemos auditorías forenses y contribuciones de código. Ver [CONTRIBUTING.md](CONTRIBUTING.md).
+Damos la bienvenida a contribuciones de código. Ver [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ```bash
-git checkout -b feature/modulo-seguro
-git commit -m 'feat: agregar almacenamiento cifrado'
-git push origin feature/modulo-seguro
+git checkout -b feature/secure-module
+git commit -m 'feat: add encrypted storage'
+git push origin feature/secure-module
 ```
 
 ---
@@ -162,7 +156,7 @@ git push origin feature/modulo-seguro
 
 <br/><br/>
 
-**Unidad de Inteligencia M&T Venezuela**
+**Proyecto M&T Venezuela**
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=0,9,11&height=100&section=footer"/>
 
