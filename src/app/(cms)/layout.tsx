@@ -29,12 +29,13 @@ export default async function CMSLayout({
   }
 
   return (
-    <div className="flex min-h-screen bg-zinc-50 dark:bg-zinc-950">
+    <div className="flex min-h-screen bg-zinc-950 text-zinc-400 font-mono dark selection:bg-red-500/20 selection:text-red-200">
+      {/* GLOBAL GRID BACKGROUND */}
+      <div className="fixed inset-0 z-0 pointer-events-none bg-[url('/grid.svg')] opacity-[0.03] bg-[size:50px_50px]" />
+
       <Sidebar userRole={profile.role} />
-      <main className="flex-1 p-8 overflow-y-auto max-h-screen">
-        <div className="max-w-7xl mx-auto space-y-8">
-            {children}
-        </div>
+      <main className="flex-1 p-8 overflow-y-auto max-h-screen relative z-10">
+        <div className="max-w-7xl mx-auto space-y-8">{children}</div>
       </main>
     </div>
   );

@@ -17,18 +17,21 @@ export default function Sidebar({ userRole }: { userRole: string }) {
   const pathname = usePathname();
 
   return (
-    <aside className="w-64 bg-white dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-800 flex flex-col justify-between p-6">
+    <aside className="w-64 bg-zinc-950/50 backdrop-blur-xl border-r border-white/5 flex flex-col justify-between p-6 relative z-20">
       <div className="space-y-8">
-        {/* LOGO */}
+        {/* LOGO - PROTOCOL ZERO */}
         <div className="flex items-center gap-3 px-2">
-            <div className="w-8 h-8 rounded-full border border-zinc-200 dark:border-white/10 flex items-center justify-center bg-zinc-100 dark:bg-black shadow-sm overflow-hidden relative">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--color-electric-blue)_0%,transparent_70%)] opacity-30" />
-                <span className="font-black text-[10px] tracking-tighter text-zinc-900 dark:text-white relative z-10">M&T</span>
+            <div className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center bg-black shadow-lg shadow-blue-900/20 overflow-hidden relative">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--color-electric-blue)_0%,transparent_70%)] opacity-50" />
+                <span className="font-black text-[10px] tracking-tighter text-white relative z-10">M&T</span>
             </div>
-            <span className="font-bold text-sm tracking-tight text-zinc-900 dark:text-white">Admin Console</span>
+            <div>
+                <span className="block font-bold text-sm tracking-tight text-white leading-none">M&T Venezuela</span>
+                <span className="text-[9px] uppercase tracking-[0.2em] text-zinc-600 font-bold">Panel Admin</span>
+            </div>
         </div>
 
-        {/* NAVIGATION */}
+        {/* NAVIGATION - TERMINAL STYLE */}
         <nav className="space-y-1">
           {NAV_ITEMS.map((item) => {
             if (item.roles && !item.roles.includes(userRole)) return null;
@@ -41,13 +44,14 @@ export default function Sidebar({ userRole }: { userRole: string }) {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200",
+                  "flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-mono transition-all duration-200 group relative overflow-hidden",
                   isActive
-                    ? "bg-blue-50 text-blue-700 dark:bg-blue-900/20 dark:text-blue-400 font-bold"
-                    : "text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800"
+                    ? "text-white bg-white/5 border border-white/5 shadow-inner"
+                    : "text-zinc-500 hover:text-zinc-300 hover:bg-white/5"
                 )}
               >
-                <Icon size={18} strokeWidth={isActive ? 2.5 : 2} />
+                {isActive && <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]" />}
+                <Icon size={16} className={cn("transition-colors", isActive ? "text-blue-400" : "text-zinc-600 group-hover:text-zinc-400")} />
                 {item.label}
               </Link>
             );
@@ -55,14 +59,17 @@ export default function Sidebar({ userRole }: { userRole: string }) {
         </nav>
       </div>
 
-      {/* FOOTER */}
-      <div className="border-t border-zinc-100 dark:border-zinc-800 pt-6 space-y-4">
-        <div className="px-4 py-3 bg-zinc-50 dark:bg-zinc-800/50 rounded-xl border border-zinc-100 dark:border-zinc-700/50">
-            <p className="text-[10px] uppercase tracking-widest text-zinc-400 font-bold">Role</p>
-            <p className="text-xs font-medium text-zinc-900 dark:text-zinc-200 capitalize mt-0.5">{userRole}</p>
+      {/* FOOTER - USER IDENTITY */}
+      <div className="border-t border-white/5 pt-6 space-y-4">
+        <div className="px-4 py-3 bg-white/5 rounded-lg border border-white/5 flex items-center justify-between group cursor-help">
+            <div>
+                <p className="text-[9px] uppercase tracking-widest text-zinc-500 font-bold group-hover:text-blue-400 transition-colors">Usuario</p>
+                <p className="text-xs font-mono text-zinc-300 capitalize mt-0.5">{userRole}</p>
+            </div>
+            <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
         </div>
-        <button className="flex items-center gap-3 px-4 py-2 text-xs font-medium text-red-500 hover:text-red-600 transition-colors w-full">
-            <LogOut size={16} />
+        <button className="flex items-center gap-3 px-4 py-2 text-xs font-mono text-zinc-500 hover:text-zinc-300 transition-colors w-full uppercase tracking-widest">
+            <LogOut size={14} />
             Cerrar Sesión
         </button>
       </div>
