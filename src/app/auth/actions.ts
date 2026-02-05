@@ -23,8 +23,6 @@ export async function login(formData: FormData) {
 }
 
 export async function signup(formData: FormData) {
-    // Disabled for MVP - Invite Only logic preferred for Intelligence Apps
-    // but kept stub for future use
     const supabase = await createClient()
   
     const data = {
@@ -44,9 +42,9 @@ export async function signup(formData: FormData) {
     })
   
     if (error) {
-      redirect('/auth?error=Sign up failed')
+      redirect(`/auth?error=${encodeURIComponent(error.message)}`)
     }
   
-    revalidatePath('/', 'layout')
-    redirect('/')
+    // Redirect to check email or dashboard if auto-confirmed
+    redirect('/auth?error=Check your email to confirm account')
   }
