@@ -71,8 +71,8 @@ export const viewport: Viewport = {
   maximumScale: 1,
 };
 
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
+
+
 
 export default function RootLayout({
   children,
@@ -109,11 +109,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Header />
           <main className="min-h-screen">
             {children}
           </main>
-          <Footer />
         </ThemeProvider>
       </body>
     </html>

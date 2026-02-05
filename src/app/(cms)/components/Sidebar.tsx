@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Newspaper, Users, ShieldAlert, LogOut, FileText } from "lucide-react";
+import { LayoutDashboard, Newspaper, Users, ShieldAlert, LogOut, FileText, Shield } from "lucide-react"; // Added Shield import
 import { cn } from "@/lib/utils";
 
 const NAV_ITEMS = [
@@ -19,17 +19,21 @@ export default function Sidebar({ userRole }: { userRole: string }) {
   return (
     <aside className="w-64 bg-zinc-950/50 backdrop-blur-xl border-r border-white/5 flex flex-col justify-between p-6 relative z-20">
       <div className="space-y-8">
-        {/* LOGO - PROTOCOL ZERO */}
-        <div className="flex items-center gap-3 px-2">
-            <div className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center bg-black shadow-lg shadow-blue-900/20 overflow-hidden relative">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--color-electric-blue)_0%,transparent_70%)] opacity-50" />
-                <span className="font-black text-[10px] tracking-tighter text-white relative z-10">M&T</span>
-            </div>
-            <div>
-                <span className="block font-bold text-sm tracking-tight text-white leading-none">M&T Venezuela</span>
-                <span className="text-[9px] uppercase tracking-[0.2em] text-zinc-600 font-bold">Panel Admin</span>
-            </div>
-        </div>
+        {/* LOGO */}
+        <Link href="/" className="mb-8 flex items-center gap-3 px-2 group hover:opacity-80 transition-opacity">
+          <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-zinc-800 to-zinc-900 border border-zinc-700 shadow-xl overflow-hidden group-hover:shadow-[0_0_20px_rgba(59,130,246,0.3)] transition-all duration-500">
+             <Shield className="h-5 w-5 text-zinc-100 relative z-10 group-hover:scale-110 transition-transform duration-500" />
+             <div className="absolute inset-0 bg-blue-500/10 group-hover:bg-blue-500/20 transition-colors" />
+          </div>
+          <div>
+            <h1 className="font-sans text-sm font-bold text-zinc-100 tracking-wide">
+              M&T<span className="text-blue-500">.</span>
+            </h1>
+            <p className="font-mono text-[10px] text-zinc-500 tracking-wider font-medium">
+              PANEL ADMIN
+            </p>
+          </div>
+        </Link>
 
         {/* NAVIGATION - TERMINAL STYLE */}
         <nav className="space-y-1">
