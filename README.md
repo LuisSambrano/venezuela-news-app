@@ -148,6 +148,20 @@ git push origin feature/secure-module
 
 ---
 
+## 🔬 Research & Decision Log
+
+This project follows a **Research-First** methodology. All strategic decisions are documented:
+
+| Document                                      | Purpose                             |
+| --------------------------------------------- | ----------------------------------- |
+| [KEY_FINDINGS.md](./research/KEY_FINDINGS.md) | Distilled insights from research    |
+| [prompts/](./research/prompts/)               | Investigation modules with tracking |
+| [docs/brain/](./docs/brain/)                  | Original research documents         |
+
+> 💡 **For AIs**: Read `KEY_FINDINGS.md` first for maximum context on decisions and architecture.
+
+---
+
 <div align="center">
 
 ## 📬 Connect

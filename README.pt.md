@@ -148,6 +148,20 @@ git push origin feature/secure-module
 
 ---
 
+## 🔬 Pesquisa e Registro de Decisões
+
+Este projeto segue uma metodologia **Research-First**. Todas as decisões estratégicas estão documentadas:
+
+| Documento                                     | Propósito                            |
+| --------------------------------------------- | ------------------------------------ |
+| [KEY_FINDINGS.md](./research/KEY_FINDINGS.md) | Insights destilados da pesquisa      |
+| [prompts/](./research/prompts/)               | Módulos de investigação com tracking |
+| [docs/brain/](./docs/brain/)                  | Documentos originais de pesquisa     |
+
+> 💡 **Para IAs**: Leia `KEY_FINDINGS.md` primeiro para contexto máximo sobre decisões e arquitetura.
+
+---
+
 <div align="center">
 
 ## 📬 Conectar
