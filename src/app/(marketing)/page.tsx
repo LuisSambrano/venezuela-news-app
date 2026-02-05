@@ -1,18 +1,31 @@
-import OracleHero from "@/components/institucional/OracleHero";
-import TheProblem from "@/components/institucional/TheProblem";
-import SectionThree from "@/components/institucional/SectionThree";
+import ActOne from "@/components/home/Act1_Hero";
+import ActTwo from "@/components/home/Act2_Context";
+import ActThree from "@/components/home/Act3_Prisoners";
+import ActFour from "@/components/home/Act4_Method";
+import ActFive from "@/components/home/Act5_CTA";
 
 export default function Home() {
   return (
-    <main className="flex flex-col min-h-screen bg-background text-foreground selection:bg-electric-blue selection:text-black">
-      {/* ACT 1: THE IMPACT */}
-      <OracleHero />
+    <main className="min-h-screen relative">
+      {/* 
+        The background is handled by layout.tsx (Fixed Gradient).
+        Here we just sequence the 5 Acts.
+      */}
+      
+      {/* 1. LA REALIDAD */}
+      <ActOne />
 
-      {/* ACT 2: THE PAIN */}
-      <TheProblem />
+      {/* 2. EL SILENCIO */}
+      <ActTwo />
 
-      {/* ACT 3: THE INTELLIGENCE SHOWROOM */}
-      <SectionThree />
+      {/* 3. LOS OLVIDADOS */}
+      <ActThree />
+
+      {/* 4. LA METODOLOGÍA */}
+      <ActFour />
+
+      {/* 5. LA ACCIÓN */}
+      <ActFive />
     </main>
   );
 }

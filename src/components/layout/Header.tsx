@@ -24,7 +24,6 @@ export function Header() {
           </div>
           <div className="flex flex-col">
             <span className="font-bold tracking-tight text-base text-zinc-800 dark:text-zinc-100 italic">M&TVenezuela</span>
-            <span className="text-[8px] uppercase tracking-[0.2em] font-medium text-zinc-400 dark:text-zinc-500">Open-Source Intelligence</span>
           </div>
         </Link>
         

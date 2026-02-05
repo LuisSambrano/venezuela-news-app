@@ -166,7 +166,7 @@
   }
   html {
     scroll-behavior: smooth;
-    scroll-snap-type: y proximity; /* Hybrid Snap: Magnetism without Jail */
+    scroll-snap-type: y mandatory; /* Apple-style Snapping */
   }
   body {
     /* Global Design System Enforcement */

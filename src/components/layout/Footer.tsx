@@ -15,7 +15,7 @@ export function Footer() {
              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--color-electric-blue)_0%,transparent_70%)] opacity-20 group-hover:opacity-40 transition-opacity" />
              <span className="font-black text-[9px] tracking-tighter text-foreground relative z-10">M&T</span>
            </div>
-           <span className="font-black tracking-tighter text-xs uppercase text-foreground">© 2026 Nexus</span>
+           <span className="font-black tracking-tighter text-xs uppercase text-foreground">M&T Venezuela</span>
         </div>
 
         {/* CENTER: Social Networks (The 2026 Standard) */}
