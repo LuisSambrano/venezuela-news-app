@@ -6,7 +6,7 @@ import Link from "next/link";
 import { ArrowLeft, ShieldCheck, Mail, Lock, User, AlertCircle, Loader2 } from "lucide-react";
 import { useFormStatus } from "react-dom";
 import { login, signup } from "./actions";
-import { createBrowserClient } from "@supabase/ssr";
+// import { createBrowserClient } from "@supabase/ssr";
 import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
@@ -38,21 +38,8 @@ function AuthForm() {
   const [mode, setMode] = useState<"login" | "signup">("login");
   const searchParams = useSearchParams();
   const error = searchParams.get("error");
-  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
+// Google Auth removed for cleanup
 
-  const handleGoogleLogin = async () => {
-    setIsGoogleLoading(true);
-    const supabase = createBrowserClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-    );
-    await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
-      },
-    });
-  };
 
   return (
       <motion.div 

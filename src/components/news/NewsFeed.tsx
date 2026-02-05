@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { 
-  TrendingUp, Activity, Clock, 
+  TrendingUp, Activity, 
   ChevronLeft, ChevronRight, Globe2, Cpu, Landmark, ShieldCheck,
   Plus
 } from 'lucide-react';
@@ -10,10 +10,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { cn } from "@/lib/utils";
 import { HeaderClearance } from "@/components/layout/HeaderClearance";
-
 import { supabase } from '@/lib/supabase';
+import { GlassCard } from "@/components/ui/glass-card"; // Import new primitive
+import { NewsCard } from "@/components/news/NewsCard"; // Import extracted component
 
-// --- TYPES ---
+// ... TYPES (Keep existing)
 interface NewsItem {
   id: string;
   title: string;
@@ -25,7 +26,7 @@ interface NewsItem {
   slug: string;
 }
 
-// --- SEO STRUCTURED DATA COMPONENT ---
+// ... NewsStructuredData (Keep existing)
 const NewsStructuredData = ({ items }: { items: NewsItem[] }) => {
   const schema = {
     "@context": "https://schema.org",
@@ -63,8 +64,6 @@ const NewsStructuredData = ({ items }: { items: NewsItem[] }) => {
   );
 };
 
-// --- COMPONENTS ---
-
 const ArrowUpRight = ({ size, className }: { size: number, className?: string }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className={className}>
     <line x1="7" y1="17" x2="17" y2="7"></line>
@@ -87,7 +86,7 @@ const HeroCarousel = ({ items }: { items: NewsItem[] }) => {
   const currentItem = items[currentIndex];
 
   return (
-    <div className="col-span-12 lg:col-span-9 relative aspect-video md:aspect-cinema rounded-[32px] overflow-hidden group shadow-xl">
+    <div className="col-span-12 lg:col-span-9 relative aspect-video md:aspect-cinema rounded-[32px] overflow-hidden group shadow-2xl dark:shadow-black/50">
       <AnimatePresence mode="wait">
         <motion.div
           key={currentIndex}
@@ -104,15 +103,15 @@ const HeroCarousel = ({ items }: { items: NewsItem[] }) => {
             className="object-cover"
             priority
           />
-          {/* GRADIENT OVERLAY FOR CONTRAST */}
-          <div className="absolute inset-0 bg-linear-to-t from-zinc-950 via-zinc-950/20 to-transparent opacity-90" />
+          {/* GRADIENT OVERLAY FOR CONTRAST - Standardized */}
+          <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent" />
           
           <div className="absolute bottom-0 left-0 p-8 md:p-12 w-full max-w-3xl space-y-4">
             <motion.span 
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="px-4 py-1.5 rounded-full bg-blue-600/90 backdrop-blur-md text-[10px] font-bold uppercase tracking-[0.2em] text-white shadow-lg"
+              className="px-4 py-1.5 rounded-full bg-blue-500/90 backdrop-blur-md text-[10px] font-bold uppercase tracking-[0.2em] text-white shadow-lg"
             >
               Noticia Destacada
             </motion.span>
@@ -137,7 +136,7 @@ const HeroCarousel = ({ items }: { items: NewsItem[] }) => {
       </AnimatePresence>
 
       {/* CAROUSEL CONTROLS */}
-      <div className="absolute bottom-8 right-8 flex items-center gap-2">
+      <div className="absolute bottom-8 right-8 flex items-center gap-2 z-20">
         <button 
           onClick={() => setCurrentIndex((prev) => (prev - 1 + items.length) % items.length)}
           className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all"
@@ -169,8 +168,8 @@ const HeroCarousel = ({ items }: { items: NewsItem[] }) => {
 
 const Sidebar = () => (
   <aside className="col-span-12 lg:col-span-3 flex flex-col gap-6">
-    {/* MONITOR */}
-    <div className="flex-1 p-8 rounded-[32px] bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-white/5 shadow-sm flex flex-col justify-between">
+    {/* MONITOR - Using GlassCard */}
+    <GlassCard className="flex-1 p-8 flex flex-col justify-between">
       <div className="flex justify-between items-center border-b border-zinc-100 dark:border-white/5 pb-4">
         <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-800 dark:text-zinc-200">Monitor</h3>
         <Activity size={16} className="text-blue-500" />
@@ -180,21 +179,21 @@ const Sidebar = () => (
           <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">Paralelo</span>
           <div className="text-right">
             <p className="text-2xl font-black tracking-tighter text-zinc-900 dark:text-white">Bs. 52.40</p>
-            <span className="text-[10px] font-bold text-emerald-500 bg-emerald-500/10 px-2 py-0.5 rounded-full">+1.2%</span>
+            <span className="text-[10px] font-bold text-green-600 dark:text-green-400">+1.2%</span>
           </div>
         </div>
         <div className="flex justify-between items-end">
           <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">BCV</span>
           <div className="text-right">
             <p className="text-2xl font-black tracking-tighter text-zinc-900 dark:text-white">Bs. 48.15</p>
-            <span className="text-[10px] font-bold text-zinc-300">0.0%</span>
+            <span className="text-[10px] font-bold text-zinc-500">0.0%</span>
           </div>
         </div>
       </div>
-    </div>
+    </GlassCard>
 
-    {/* TENDENCIAS */}
-    <div className="flex-1 p-8 rounded-[32px] bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-white/5 shadow-sm">
+    {/* TENDENCIAS - Using GlassCard */}
+    <GlassCard className="flex-1 p-8">
       <div className="flex justify-between items-center border-b border-zinc-100 dark:border-white/5 pb-4 mb-4">
         <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-800 dark:text-zinc-200">Trends</h3>
         <TrendingUp size={16} className="text-zinc-400" />
@@ -209,63 +208,16 @@ const Sidebar = () => (
           </li>
         ))}
       </ul>
-    </div>
+    </GlassCard>
   </aside>
 );
-
-const NewsCard = ({ item }: { item: NewsItem }) => {
-  const timeAgo = (date: string) => {
-    try {
-      const seconds = Math.floor((new Date().getTime() - new Date(date).getTime()) / 1000);
-      if (seconds < 60) return 'Just now';
-      if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
-      if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`;
-      return `${Math.floor(seconds / 86400)}d ago`;
-    } catch {
-      return 'Recently';
-    }
-  };
-
-  return (
-    <motion.article
-      layout
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.95 }}
-      viewport={{ once: true }}
-      className="flex flex-col gap-5 group cursor-pointer"
-    >
-      <div className="relative aspect-16/10 rounded-[24px] overflow-hidden border border-zinc-100 dark:border-white/5 shadow-md">
-        <Image 
-          src={item.image_url} 
-          alt={item.title}
-          fill
-          className="object-cover transition-transform duration-700 group-hover:scale-110"
-        />
-        <div className="absolute inset-0 bg-zinc-900/5 group-hover:bg-transparent transition-colors" />
-      </div>
-      <div className="space-y-3 px-1">
-        <div className="flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-zinc-400">
-          <span className="text-blue-600 dark:text-blue-400">{item.category}</span>
-          <span className="flex items-center gap-1.5"><Clock size={12} /> {timeAgo(item.published_at)}</span>
-        </div>
-        <h3 className="text-xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 line-clamp-2 leading-[1.2] group-hover:text-blue-600 transition-colors">
-          {item.title}
-        </h3>
-        <p className="text-sm text-zinc-500 dark:text-zinc-400 line-clamp-2 leading-relaxed">
-          {item.subtitle}
-        </p>
-      </div>
-    </motion.article>
-  );
-};
 
 const Pagination = () => (
   <nav className="flex items-center justify-center gap-2 pt-16">
     <button className="w-10 h-10 rounded-full border border-zinc-100 dark:border-white/5 flex items-center justify-center text-zinc-400 hover:bg-zinc-50 dark:hover:bg-white/5 transition-colors">
       <ChevronLeft size={18} />
     </button>
-    {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((p) => (
+    {[1, 2, 3].map((p) => (
       <button 
         key={p}
         className={cn(
@@ -326,19 +278,19 @@ export default function NewsFeed() {
   const feedItems = filteredNews.slice(3);
 
   if (loading) return (
-    <div className="min-h-screen flex items-center justify-center bg-[#fcfcfc] dark:bg-zinc-950">
+    <div className="min-h-screen flex items-center justify-center">
       <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
     </div>
   );
 
   return (
-    <main className="min-h-screen bg-[#fcfcfc] dark:bg-zinc-950 px-6 lg:px-12 pb-32">
+    <div className="w-full px-6 lg:px-12 pb-32">
       <HeaderClearance />
       <NewsStructuredData items={[...heroItems, ...news]} />
       
       <div className="max-w-7xl mx-auto">
         
-        {/* TOP SECTION: HERO CAROUSEL + SIDEBAR (80/20) */}
+        {/* TOP SECTION */}
         <section className="grid grid-cols-12 gap-8 mb-16">
           <HeroCarousel items={heroItems} />
           <Sidebar />
@@ -347,7 +299,7 @@ export default function NewsFeed() {
         {/* DIVIDER + TAG SELECTOR */}
         <div className="relative py-12 flex flex-col items-center">
           <div className="absolute top-1/2 left-0 right-0 h-px bg-zinc-200 dark:bg-zinc-800 -z-10" />
-          <div className="bg-[#fcfcfc] dark:bg-zinc-950 px-8 flex items-center gap-4 overflow-x-auto no-scrollbar max-w-full">
+          <div className="bg-background px-8 flex items-center gap-4 overflow-x-auto no-scrollbar max-w-full">
             {tags.map((tag) => (
               <button
                 key={tag.name}
@@ -389,10 +341,9 @@ export default function NewsFeed() {
             </div>
           )}
 
-          {/* PAGINATION (1-9) - ONLY VISIBLE AFTER EXPANDING OR IF CONTENT IS LARGE */}
           {feedItems.length > 24 && limit >= feedItems.length && <Pagination />}
         </section>
       </div>
-    </main>
+    </div>
   );
 }

@@ -17,7 +17,7 @@ export default function MetodologiaComponent() {
             <p className="text-zinc-500 dark:text-zinc-400 text-2xl font-light leading-relaxed italic">Monitoreo constante de fuentes digitales cifradas y APIs gubernamentales para capturar datos antes de alteraciones oficiales.</p>
          </div>
          <div className="glass-panel p-16 rounded-[64px] shadow-xl space-y-10 group hover:border-primary transition-all">
-            <Server className="text-emerald-500" size={56} />
+            <Server className="text-blue-600 dark:text-blue-400" size={56} />
             <h3 className="text-5xl font-black uppercase tracking-tighter italic">Validación</h3>
             <p className="text-zinc-500 dark:text-zinc-400 text-2xl font-light leading-relaxed italic">Cruce masivo de datos mediante nodos independientes distribuidos para garantizar una veracidad técnica inmutable.</p>
          </div>

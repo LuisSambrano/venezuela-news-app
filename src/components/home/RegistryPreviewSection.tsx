@@ -8,8 +8,8 @@ export default function ActThree() {
         
         <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
             <div className="space-y-8">
-                <div className="inline-flex items-center gap-2 text-red-500 font-mono text-sm tracking-widest uppercase">
-                    <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
+                <div className="inline-flex items-center gap-2 text-destructive font-mono text-sm tracking-widest uppercase">
+                    <span className="w-2 h-2 bg-destructive rounded-full animate-pulse" />
                     Registro Central Live
                 </div>
                 
