@@ -106,7 +106,7 @@ const HeroCarousel = ({ items }: { items: NewsItem[] }) => {
             priority
           />
           {/* GRADIENT OVERLAY FOR CONTRAST - Standardized */}
-          <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-t from-zinc-950 via-zinc-950/40 to-transparent" />
           
           <div className="absolute bottom-0 left-0 p-8 md:p-12 w-full max-w-3xl space-y-4">
             <motion.span 

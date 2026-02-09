@@ -9,7 +9,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { MoreHorizontal, Trash2, Edit, Eye } from "lucide-react";
+import { MoreHorizontal, Trash2, Edit, Eye, Globe, PenLine } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,7 +18,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { deleteArticle } from "../actions";
+import { deleteArticle, togglePublished } from "../actions";
 import Link from "next/link";
 
 interface Article {
@@ -28,9 +28,30 @@ interface Article {
     category: string;
     image_url: string;
     slug: string;
+    source?: string;
+    published?: boolean;
 }
 
-// ... imports remain the same
+/**
+ * Renders the source badge (manual vs aggregated) for each article.
+ * Helps editors distinguish between human-written and auto-fetched content.
+ */
+function SourceBadge({ source }: { source?: string }) {
+  if (source === "manual") {
+    return (
+      <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-mono uppercase tracking-wider bg-blue-500/10 text-blue-400 border border-blue-500/20">
+        <PenLine className="h-2.5 w-2.5" />
+        Manual
+      </span>
+    );
+  }
+  return (
+    <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-mono uppercase tracking-wider bg-purple-500/10 text-purple-400 border border-purple-500/20">
+      <Globe className="h-2.5 w-2.5" />
+      {source || "agregado"}
+    </span>
+  );
+}
 
 export default function NewsTable({ articles }: { articles: Article[] }) {
   return (
@@ -41,6 +62,7 @@ export default function NewsTable({ articles }: { articles: Article[] }) {
             <TableHead className="w-[80px] text-[10px] uppercase tracking-widest text-zinc-500 font-bold font-mono">Imagen</TableHead>
             <TableHead className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold font-mono">Detalles</TableHead>
             <TableHead className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold font-mono">Categoría</TableHead>
+            <TableHead className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold font-mono">Fuente</TableHead>
             <TableHead className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold font-mono">Estado</TableHead>
             <TableHead className="text-right text-[10px] uppercase tracking-widest text-zinc-500 font-bold font-mono">Acciones</TableHead>
           </TableRow>
@@ -70,10 +92,29 @@ export default function NewsTable({ articles }: { articles: Article[] }) {
                   </div>
               </TableCell>
               <TableCell>
-                  <div className="flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
-                    <span className="text-[10px] font-mono font-medium text-emerald-500 uppercase tracking-wider">Publicado</span>
-                  </div>
+                  <SourceBadge source={article.source} />
+              </TableCell>
+              <TableCell>
+                  <form action={togglePublished}>
+                    <input type="hidden" name="id" value={article.id} />
+                    <input type="hidden" name="published" value={String(article.published ?? true)} />
+                    <button
+                      type="submit"
+                      className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
+                      title={article.published !== false ? "Click para despublicar" : "Click para publicar"}
+                    >
+                      <div className={`w-1.5 h-1.5 rounded-full ${
+                        article.published !== false
+                          ? "bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]"
+                          : "bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.5)]"
+                      }`} />
+                      <span className={`text-[10px] font-mono font-medium uppercase tracking-wider ${
+                        article.published !== false ? "text-emerald-500" : "text-amber-500"
+                      }`}>
+                        {article.published !== false ? "Publicado" : "Borrador"}
+                      </span>
+                    </button>
+                  </form>
               </TableCell>
               <TableCell className="text-right">
                 <DropdownMenu>
