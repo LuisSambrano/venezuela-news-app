@@ -176,12 +176,6 @@ const Sidebar = () => {
     const fetchRates = async () => {
       try {
         const data = await DolarService.getAll();
-        const paralelo = data.find(r => r.code === 'oficial') || null; // DolarAPI maps 'oficial' to BCV usually, wait. 
-        // Official API: 'oficial' is BCV, 'paralelo' doesn't exist as code? 
-        // Let's check DolarAPI docs or assume standard codes: 'oficial' (BCV), 'blue' (Paralelo in Arg, but Ven? 'paralelo'?)
-        // In venezuela typically: 'oficial' = BCV. 'monitor' or 'paralelo' = Paralelo.
-        // Quick verification: DolarAPI for Venezuela uses 'oficial', 'paralelo'.
-        
         const bcvRate = data.find(r => r.code === 'oficial') || null;
         const paraleloRate = data.find(r => r.code === 'paralelo') || null;
         
