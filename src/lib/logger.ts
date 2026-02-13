@@ -32,7 +32,7 @@ export const logger = {
 
       const consoleMethod = level === 'debug' ? 'log' : (level as keyof Console);
       const method = typeof console[consoleMethod] === 'function'
-        ? (console[consoleMethod] as Function)
+        ? (console[consoleMethod] as (...args: unknown[]) => void)
         : console.log;
 
       method(
