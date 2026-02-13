@@ -104,6 +104,7 @@ const HeroCarousel = ({ items }: { items: NewsItem[] }) => {
             fill
             className="object-cover"
             priority
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 75vw, 66vw"
           />
           {/* GRADIENT OVERLAY FOR CONTRAST - Standardized */}
           <div className="absolute inset-0 bg-linear-to-t from-zinc-950 via-zinc-950/40 to-transparent" />
