@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { GlassCard } from '@/components/ui/glass-card';
 import { cn } from '@/lib/utils';
+import { buildPrisonerSearchQuery } from '@/lib/search';
 
 interface Prisoner {
     id: string;
@@ -26,10 +27,7 @@ export default async function RegistryDashboard({ searchParams }: { searchParams
   // Fetch Search Results if Query exists
   let searchResults: Prisoner[] = [];
   if (query.length > 2) {
-      const { data } = await supabase
-        .from('prisoners')
-        .select('*')
-        .or(`full_name.ilike.%${query}%,national_id.ilike.%${query}%`)
+      const { data } = await buildPrisonerSearchQuery(supabase, query)
         .limit(10);
       searchResults = data as Prisoner[] || [];
   }
