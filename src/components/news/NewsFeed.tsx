@@ -13,7 +13,6 @@ import { HeaderClearance } from "@/components/layout/HeaderClearance";
 import { supabase } from '@/lib/supabase';
 import { GlassCard } from "@/components/ui/glass-card"; 
 import { NewsCard } from "@/components/news/NewsCard"; 
-import { DolarService } from "@/lib/services/dolar";
 import { Currency } from "@/lib/types/currency";
 
 // ... TYPES (Keep existing)
@@ -168,29 +167,9 @@ const HeroCarousel = ({ items }: { items: NewsItem[] }) => {
   );
 };
 
-const Sidebar = () => {
-  const [rates, setRates] = useState<{ paralelo: Currency | null, bcv: Currency | null }>({ paralelo: null, bcv: null });
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchRates = async () => {
-      try {
-        const data = await DolarService.getAll();
-        const bcvRate = data.find(r => r.code === 'oficial') || null;
-        const paraleloRate = data.find(r => r.code === 'paralelo') || null;
-        
-        setRates({
-          paralelo: paraleloRate,
-          bcv: bcvRate
-        });
-      } catch (err) {
-        console.error("Failed to load rates", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchRates();
-  }, []);
+const Sidebar = ({ rates }: { rates: Currency[] }) => {
+  const bcvRate = rates.find(r => r.code === 'oficial') || null;
+  const paraleloRate = rates.find(r => r.code === 'paralelo') || null;
 
   return (
     <aside className="col-span-12 lg:col-span-3 flex flex-col gap-6">
@@ -204,35 +183,23 @@ const Sidebar = () => {
           <div className="flex justify-between items-end">
             <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">Paralelo</span>
             <div className="text-right">
-              {loading ? (
-                <div className="h-8 w-24 bg-zinc-200 dark:bg-zinc-800 animate-pulse rounded" />
-              ) : (
-                <>
-                  <p className="text-2xl font-black tracking-tighter text-zinc-900 dark:text-white">
-                    Bs. {rates.paralelo?.sell.toFixed(2) || '---'}
-                  </p>
-                  <span className="text-[10px] font-bold text-green-600 dark:text-green-400">
-                     {rates.paralelo?.variation || '+0.0%'}
-                  </span>
-                </>
-              )}
+              <p className="text-2xl font-black tracking-tighter text-zinc-900 dark:text-white">
+                Bs. {paraleloRate?.sell.toFixed(2) || '---'}
+              </p>
+              <span className="text-[10px] font-bold text-green-600 dark:text-green-400">
+                  {paraleloRate?.variation || '+0.0%'}
+              </span>
             </div>
           </div>
           <div className="flex justify-between items-end">
             <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">BCV</span>
             <div className="text-right">
-               {loading ? (
-                <div className="h-8 w-24 bg-zinc-200 dark:bg-zinc-800 animate-pulse rounded" />
-              ) : (
-                <>
-                  <p className="text-2xl font-black tracking-tighter text-zinc-900 dark:text-white">
-                    Bs. {rates.bcv?.sell.toFixed(2) || '---'}
-                  </p>
-                  <span className="text-[10px] font-bold text-zinc-500">
-                    {rates.bcv?.variation || '0.0%'}
-                  </span>
-                </>
-              )}
+              <p className="text-2xl font-black tracking-tighter text-zinc-900 dark:text-white">
+                Bs. {bcvRate?.sell.toFixed(2) || '---'}
+              </p>
+              <span className="text-[10px] font-bold text-zinc-500">
+                {bcvRate?.variation || '0.0%'}
+              </span>
             </div>
           </div>
         </div>
@@ -285,7 +252,11 @@ const Pagination = () => (
 
 // --- MAIN FEED ---
 
-export default function NewsFeed() {
+interface NewsFeedProps {
+  initialRates?: Currency[];
+}
+
+export default function NewsFeed({ initialRates = [] }: NewsFeedProps) {
   const [limit, setLimit] = useState(6);
   const [activeTag, setActiveTag] = useState('Todas');
   const [news, setNews] = useState<NewsItem[]>([]);
@@ -340,7 +311,7 @@ export default function NewsFeed() {
         {/* TOP SECTION */}
         <section className="grid grid-cols-12 gap-8 mb-16">
           <HeroCarousel items={heroItems} />
-          <Sidebar />
+          <Sidebar rates={initialRates} />
         </section>
 
         {/* DIVIDER + TAG SELECTOR */}
