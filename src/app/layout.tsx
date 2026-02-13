@@ -1,3 +1,4 @@
+import { LazyMotionProvider } from "@/components/providers/LazyMotionProvider";
 import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google"; 
 import "./globals.css";
@@ -109,9 +110,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <main className="min-h-screen">
+          <LazyMotionProvider>
+            <main className="min-h-screen">
             {children}
           </main>
+          </LazyMotionProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useEffect } from "react";
-import { useMotionTemplate, useMotionValue, motion } from "framer-motion";
+import { useMotionTemplate, useMotionValue, m as motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 export const Spotlight = ({

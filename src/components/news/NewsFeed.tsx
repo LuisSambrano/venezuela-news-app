@@ -1,12 +1,16 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { 
-  TrendingUp, Activity, 
-  ChevronLeft, ChevronRight, Globe2, Cpu, Landmark, ShieldCheck,
-  Plus
-} from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import TrendingUp from 'lucide-react/dist/esm/icons/trending-up';
+import Activity from 'lucide-react/dist/esm/icons/activity';
+import ChevronLeft from 'lucide-react/dist/esm/icons/chevron-left';
+import ChevronRight from 'lucide-react/dist/esm/icons/chevron-right';
+import Globe2 from 'lucide-react/dist/esm/icons/globe-2';
+import Cpu from 'lucide-react/dist/esm/icons/cpu';
+import Landmark from 'lucide-react/dist/esm/icons/landmark';
+import ShieldCheck from 'lucide-react/dist/esm/icons/shield-check';
+import Plus from 'lucide-react/dist/esm/icons/plus';
+import { m as motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { cn } from "@/lib/utils";
 import { HeaderClearance } from "@/components/layout/HeaderClearance";

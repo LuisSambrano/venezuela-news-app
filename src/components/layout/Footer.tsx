@@ -1,7 +1,10 @@
 "use client";
 
 import React from 'react';
-import { Linkedin, Instagram, Github, ArrowUp } from 'lucide-react';
+import Linkedin from 'lucide-react/dist/esm/icons/linkedin';
+import Instagram from 'lucide-react/dist/esm/icons/instagram';
+import Github from 'lucide-react/dist/esm/icons/github';
+import ArrowUp from 'lucide-react/dist/esm/icons/arrow-up';
 import Link from 'next/link';
 
 export function Footer() {
