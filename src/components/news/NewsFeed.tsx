@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   TrendingUp, Activity, 
   ChevronLeft, ChevronRight, Globe2, Cpu, Landmark, ShieldCheck,
@@ -13,7 +13,6 @@ import { HeaderClearance } from "@/components/layout/HeaderClearance";
 import { supabase } from '@/lib/supabase';
 import { GlassCard } from "@/components/ui/glass-card"; 
 import { NewsCard } from "@/components/news/NewsCard"; 
-import { DolarService } from "@/lib/services/dolar";
 import { Currency } from "@/lib/types/currency";
 
 // ... TYPES (Keep existing)
@@ -26,6 +25,15 @@ interface NewsItem {
   published_at: string;
   author: string;
   slug: string;
+}
+
+interface NewsFeedProps {
+  initialNews: NewsItem[];
+  initialTotalCount: number;
+  initialRates: {
+    paralelo: Currency | null;
+    bcv: Currency | null;
+  };
 }
 
 // ... NewsStructuredData (Keep existing)
@@ -168,30 +176,14 @@ const HeroCarousel = ({ items }: { items: NewsItem[] }) => {
   );
 };
 
-const Sidebar = () => {
-  const [rates, setRates] = useState<{ paralelo: Currency | null, bcv: Currency | null }>({ paralelo: null, bcv: null });
-  const [loading, setLoading] = useState(true);
+interface SidebarProps {
+  rates: {
+    paralelo: Currency | null;
+    bcv: Currency | null;
+  };
+}
 
-  useEffect(() => {
-    const fetchRates = async () => {
-      try {
-        const data = await DolarService.getAll();
-        const bcvRate = data.find(r => r.code === 'oficial') || null;
-        const paraleloRate = data.find(r => r.code === 'paralelo') || null;
-        
-        setRates({
-          paralelo: paraleloRate,
-          bcv: bcvRate
-        });
-      } catch (err) {
-        console.error("Failed to load rates", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchRates();
-  }, []);
-
+const Sidebar = ({ rates }: SidebarProps) => {
   return (
     <aside className="col-span-12 lg:col-span-3 flex flex-col gap-6">
       {/* MONITOR - Using GlassCard */}
@@ -204,34 +196,34 @@ const Sidebar = () => {
           <div className="flex justify-between items-end">
             <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">Paralelo</span>
             <div className="text-right">
-              {loading ? (
-                <div className="h-8 w-24 bg-zinc-200 dark:bg-zinc-800 animate-pulse rounded" />
-              ) : (
+              {rates.paralelo ? (
                 <>
                   <p className="text-2xl font-black tracking-tighter text-zinc-900 dark:text-white">
-                    Bs. {rates.paralelo?.sell.toFixed(2) || '---'}
+                    Bs. {rates.paralelo.sell.toFixed(2)}
                   </p>
                   <span className="text-[10px] font-bold text-green-600 dark:text-green-400">
-                     {rates.paralelo?.variation || '+0.0%'}
+                     {rates.paralelo.variation || '+0.0%'}
                   </span>
                 </>
+              ) : (
+                <p className="text-2xl font-black tracking-tighter text-zinc-900 dark:text-white">---</p>
               )}
             </div>
           </div>
           <div className="flex justify-between items-end">
             <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">BCV</span>
             <div className="text-right">
-               {loading ? (
-                <div className="h-8 w-24 bg-zinc-200 dark:bg-zinc-800 animate-pulse rounded" />
-              ) : (
+               {rates.bcv ? (
                 <>
                   <p className="text-2xl font-black tracking-tighter text-zinc-900 dark:text-white">
-                    Bs. {rates.bcv?.sell.toFixed(2) || '---'}
+                    Bs. {rates.bcv.sell.toFixed(2)}
                   </p>
                   <span className="text-[10px] font-bold text-zinc-500">
-                    {rates.bcv?.variation || '0.0%'}
+                    {rates.bcv.variation || '0.0%'}
                   </span>
                 </>
+              ) : (
+                <p className="text-2xl font-black tracking-tighter text-zinc-900 dark:text-white">---</p>
               )}
             </div>
           </div>
@@ -285,16 +277,24 @@ const Pagination = () => (
 
 // --- MAIN FEED ---
 
-export default function NewsFeed() {
+export default function NewsFeed({ initialNews, initialTotalCount, initialRates }: NewsFeedProps) {
   const [limit, setLimit] = useState(6);
   const [activeTag, setActiveTag] = useState('Todas');
-  const [news, setNews] = useState<NewsItem[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [totalCount, setTotalCount] = useState(0);
+  const [news, setNews] = useState<NewsItem[]>(initialNews || []);
+  const [loading, setLoading] = useState(!initialNews || initialNews.length === 0);
+  const [totalCount, setTotalCount] = useState(initialTotalCount || 0);
   const [isFetchingMore, setIsFetchingMore] = useState(false);
+  const hasFetchedRef = useRef(false);
 
   useEffect(() => {
-    async function fetchInitialNews() {
+    // If we have initial news and we are on the default tag, skip the first fetch
+    if (activeTag === 'Todas' && initialNews && !hasFetchedRef.current) {
+        hasFetchedRef.current = true;
+        setLoading(false);
+        return;
+    }
+
+    async function fetchNews() {
       setLoading(true);
       try {
         let query = supabase
@@ -319,8 +319,8 @@ export default function NewsFeed() {
         setLoading(false);
       }
     }
-    fetchInitialNews();
-  }, [activeTag]);
+    fetchNews();
+  }, [activeTag, initialNews]);
 
   const tags = [
     { name: 'Todas', icon: < Globe2 size={12} /> },
@@ -378,7 +378,7 @@ export default function NewsFeed() {
         {/* TOP SECTION */}
         <section className="grid grid-cols-12 gap-8 mb-16">
           <HeroCarousel items={heroItems} />
-          <Sidebar />
+          <Sidebar rates={initialRates} />
         </section>
 
         {/* DIVIDER + TAG SELECTOR */}
