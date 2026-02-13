@@ -15,7 +15,7 @@ export async function login(formData: FormData) {
   const { error } = await supabase.auth.signInWithPassword(data)
 
   if (error) {
-    redirect('/auth?error=Invalid credentials')
+    redirect('/auth?error=invalid_credentials')
   }
 
   revalidatePath('/', 'layout')
@@ -42,9 +42,9 @@ export async function signup(formData: FormData) {
     })
   
     if (error) {
-      redirect(`/auth?error=${encodeURIComponent(error.message)}`)
+      redirect(`/auth?error=signup_error`)
     }
   
     // Redirect to check email or dashboard if auto-confirmed
-    redirect('/auth?error=Check your email to confirm account')
+    redirect('/auth?error=check_email')
   }

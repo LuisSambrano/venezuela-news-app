@@ -26,5 +26,5 @@ export async function GET(request: Request) {
   }
 
   // return the user to an error page with instructions
-  return NextResponse.redirect(`${origin}/auth?error=Code Exchange Failed`)
+  return NextResponse.redirect(`${origin}/auth?error=code_exchange_failed`)
 }

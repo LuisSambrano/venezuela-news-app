@@ -10,6 +10,13 @@ import { login, signup } from "./actions";
 import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
+const ERROR_MAP: Record<string, string> = {
+  invalid_credentials: "Credenciales inválidas. Por favor, intenta de nuevo.",
+  check_email: "Se ha enviado un correo de confirmación. Por favor, revisa tu bandeja de entrada.",
+  code_exchange_failed: "Hubo un error al confirmar tu sesión. Por favor, intenta de nuevo.",
+  signup_error: "Hubo un error al crear tu cuenta. Por favor, intenta de nuevo.",
+};
+
 export default function AuthPage() {
   return (
     <main className="min-h-screen w-full flex items-center justify-center bg-background relative overflow-hidden">
@@ -38,6 +45,7 @@ function AuthForm() {
   const [mode, setMode] = useState<"login" | "signup">("login");
   const searchParams = useSearchParams();
   const error = searchParams.get("error");
+  const errorMessage = error ? (ERROR_MAP[error] || "Ha ocurrido un error inesperado.") : null;
 // Google Auth removed for cleanup
 
 
@@ -65,10 +73,10 @@ function AuthForm() {
         </div>
 
         {/* ERROR MESSAGE */}
-        {error && (
+        {errorMessage && (
             <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-3 flex items-start gap-3 text-red-400 text-xs">
                 <AlertCircle className="w-4 h-4 mt-0.5 shrink-0" />
-                <span>{decodeURIComponent(error)}</span>
+                <span>{errorMessage}</span>
             </div>
         )}
 
