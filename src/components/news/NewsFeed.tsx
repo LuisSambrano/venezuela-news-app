@@ -1,15 +1,11 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import TrendingUp from 'lucide-react/dist/esm/icons/trending-up';
-import Activity from 'lucide-react/dist/esm/icons/activity';
-import ChevronLeft from 'lucide-react/dist/esm/icons/chevron-left';
-import ChevronRight from 'lucide-react/dist/esm/icons/chevron-right';
-import Globe2 from 'lucide-react/dist/esm/icons/globe-2';
-import Cpu from 'lucide-react/dist/esm/icons/cpu';
-import Landmark from 'lucide-react/dist/esm/icons/landmark';
-import ShieldCheck from 'lucide-react/dist/esm/icons/shield-check';
-import Plus from 'lucide-react/dist/esm/icons/plus';
+import React, { useState, useEffect, useMemo, useCallback, memo } from 'react';
+import { 
+  TrendingUp, Activity, 
+  ChevronLeft, ChevronRight, Globe2, Cpu, Landmark, ShieldCheck,
+  Plus
+} from 'lucide-react';
 import { m as motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { cn } from "@/lib/utils";
@@ -33,7 +29,7 @@ interface NewsItem {
 }
 
 // ... NewsStructuredData (Keep existing)
-const NewsStructuredData = ({ items }: { items: NewsItem[] }) => {
+const NewsStructuredData = memo(({ items }: { items: NewsItem[] }) => {
   const schema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
@@ -68,16 +64,18 @@ const NewsStructuredData = ({ items }: { items: NewsItem[] }) => {
       dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
     />
   );
-};
+});
+NewsStructuredData.displayName = 'NewsStructuredData';
 
-const ArrowUpRight = ({ size, className }: { size: number, className?: string }) => (
+const ArrowUpRight = memo(({ size, className }: { size: number, className?: string }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className={className}>
     <line x1="7" y1="17" x2="17" y2="7"></line>
     <polyline points="7 7 17 7 17 17"></polyline>
   </svg>
-);
+));
+ArrowUpRight.displayName = 'ArrowUpRight';
 
-const HeroCarousel = ({ items }: { items: NewsItem[] }) => {
+const HeroCarousel = memo(({ items }: { items: NewsItem[] }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -171,9 +169,10 @@ const HeroCarousel = ({ items }: { items: NewsItem[] }) => {
       </div>
     </div>
   );
-};
+});
+HeroCarousel.displayName = 'HeroCarousel';
 
-const Sidebar = () => {
+const Sidebar = memo(() => {
   const [rates, setRates] = useState<{ paralelo: Currency | null, bcv: Currency | null }>({ paralelo: null, bcv: null });
   const [loading, setLoading] = useState(true);
 
@@ -262,9 +261,10 @@ const Sidebar = () => {
       </GlassCard>
     </aside>
   );
-};
+});
+Sidebar.displayName = 'Sidebar';
 
-const Pagination = () => (
+const Pagination = memo(() => (
   <nav className="flex items-center justify-center gap-2 pt-16">
     <button className="w-10 h-10 rounded-full border border-zinc-100 dark:border-white/5 flex items-center justify-center text-zinc-400 hover:bg-zinc-50 dark:hover:bg-white/5 transition-colors">
       <ChevronLeft size={18} />
@@ -286,7 +286,8 @@ const Pagination = () => (
       <ChevronRight size={18} />
     </button>
   </nav>
-);
+));
+Pagination.displayName = 'Pagination';
 
 // --- MAIN FEED ---
 
@@ -327,17 +328,21 @@ export default function NewsFeed() {
     fetchInitialNews();
   }, [activeTag]);
 
-  const tags = [
-    { name: 'Todas', icon: < Globe2 size={12} /> },
+  const tags = useMemo(() => [
+    { name: 'Todas', icon: <Globe2 size={12} /> },
     { name: 'Economía', icon: <Landmark size={12} /> },
     { name: 'Tecnología', icon: <Cpu size={12} /> },
     { name: 'Política', icon: <ShieldCheck size={12} /> },
-  ];
+  ], []);
 
-  const heroItems = news.slice(0, 3);
-  const feedItems = news.slice(3);
+  const { heroItems, feedItems } = useMemo(() => {
+    return {
+      heroItems: news.slice(0, 3),
+      feedItems: news.slice(3)
+    };
+  }, [news]);
 
-  const handleLoadMore = async () => {
+  const handleLoadMore = useCallback(async () => {
     const nextLimit = limit + 6;
 
     // If we need more data than what we have in memory
@@ -365,7 +370,11 @@ export default function NewsFeed() {
     }
 
     setLimit(nextLimit);
-  };
+  }, [limit, news.length, totalCount, activeTag]);
+
+  const handleTagClick = useCallback((tagName: string) => {
+    setActiveTag(tagName);
+  }, []);
 
   if (loading) return (
     <div className="min-h-screen flex items-center justify-center">
@@ -393,7 +402,7 @@ export default function NewsFeed() {
             {tags.map((tag) => (
               <button
                 key={tag.name}
-                onClick={() => setActiveTag(tag.name)}
+                onClick={() => handleTagClick(tag.name)}
                 className={cn(
                   "flex items-center gap-2.5 px-8 py-3 rounded-full text-[10px] font-black uppercase tracking-[0.2em] transition-all whitespace-nowrap border shadow-sm",
                   activeTag === tag.name 
