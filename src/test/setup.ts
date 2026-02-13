@@ -13,19 +13,19 @@ vi.mock('next/image', () => ({
 // Mock framer-motion
 vi.mock('framer-motion', () => {
   const motionMock = {
-    article: ({ children, ...props }: any) => React.createElement('article', props, children),
-    div: ({ children, ...props }: any) => React.createElement('div', props, children),
-    h1: ({ children, ...props }: any) => React.createElement('h1', props, children),
-    h2: ({ children, ...props }: any) => React.createElement('h2', props, children),
-    h3: ({ children, ...props }: any) => React.createElement('h3', props, children),
-    p: ({ children, ...props }: any) => React.createElement('p', props, children),
-    span: ({ children, ...props }: any) => React.createElement('span', props, children),
-    section: ({ children, ...props }: any) => React.createElement('section', props, children),
-    ul: ({ children, ...props }: any) => React.createElement('ul', props, children),
-    li: ({ children, ...props }: any) => React.createElement('li', props, children),
-    a: ({ children, ...props }: any) => React.createElement('a', props, children),
-    button: ({ children, ...props }: any) => React.createElement('button', props, children),
-    img: ({ children, ...props }: any) => React.createElement('img', props, children),
+    article: ({ children, ...props }: { children?: React.ReactNode; [key: string]: unknown }) => React.createElement('article', props, children),
+    div: ({ children, ...props }: { children?: React.ReactNode; [key: string]: unknown }) => React.createElement('div', props, children),
+    h1: ({ children, ...props }: { children?: React.ReactNode; [key: string]: unknown }) => React.createElement('h1', props, children),
+    h2: ({ children, ...props }: { children?: React.ReactNode; [key: string]: unknown }) => React.createElement('h2', props, children),
+    h3: ({ children, ...props }: { children?: React.ReactNode; [key: string]: unknown }) => React.createElement('h3', props, children),
+    p: ({ children, ...props }: { children?: React.ReactNode; [key: string]: unknown }) => React.createElement('p', props, children),
+    span: ({ children, ...props }: { children?: React.ReactNode; [key: string]: unknown }) => React.createElement('span', props, children),
+    section: ({ children, ...props }: { children?: React.ReactNode; [key: string]: unknown }) => React.createElement('section', props, children),
+    ul: ({ children, ...props }: { children?: React.ReactNode; [key: string]: unknown }) => React.createElement('ul', props, children),
+    li: ({ children, ...props }: { children?: React.ReactNode; [key: string]: unknown }) => React.createElement('li', props, children),
+    a: ({ children, ...props }: { children?: React.ReactNode; [key: string]: unknown }) => React.createElement('a', props, children),
+    button: ({ children, ...props }: { children?: React.ReactNode; [key: string]: unknown }) => React.createElement('button', props, children),
+    img: ({ children, ...props }: { children?: React.ReactNode; [key: string]: unknown }) => React.createElement('img', props, children),
   };
   return {
     motion: motionMock,
