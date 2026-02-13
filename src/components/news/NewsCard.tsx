@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Clock } from 'lucide-react';
@@ -15,7 +16,7 @@ interface NewsItem {
   slug: string;
 }
 
-export const NewsCard = ({ item }: { item: NewsItem }) => {
+export const NewsCard = memo(({ item }: { item: NewsItem }) => {
   const timeAgo = (date: string) => {
     try {
       const dateObj = new Date(date);
@@ -67,4 +68,6 @@ export const NewsCard = ({ item }: { item: NewsItem }) => {
       </div>
     </motion.article>
   );
-};
+});
+
+NewsCard.displayName = 'NewsCard';
