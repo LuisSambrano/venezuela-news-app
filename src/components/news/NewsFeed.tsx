@@ -290,25 +290,37 @@ export default function NewsFeed() {
   const [activeTag, setActiveTag] = useState('Todas');
   const [news, setNews] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [totalCount, setTotalCount] = useState(0);
+  const [isFetchingMore, setIsFetchingMore] = useState(false);
 
   useEffect(() => {
-    async function fetchNews() {
+    async function fetchInitialNews() {
+      setLoading(true);
       try {
-        const { data, error } = await supabase
+        let query = supabase
           .from('articles')
-          .select('*')
-          .order('published_at', { ascending: false });
+          .select('id, title, subtitle, category, image_url, published_at, author, slug', { count: 'exact' })
+          .order('published_at', { ascending: false })
+          .range(0, 23); // Initial batch of 24
+
+        if (activeTag !== 'Todas') {
+          query = query.eq('category', activeTag);
+        }
+
+        const { data, error, count } = await query;
 
         if (error) throw error;
         setNews(data || []);
+        setTotalCount(count || 0);
+        setLimit(6); // Reset display limit when tag changes
       } catch (err) {
         console.error('Error fetching news:', err);
       } finally {
         setLoading(false);
       }
     }
-    fetchNews();
-  }, []);
+    fetchInitialNews();
+  }, [activeTag]);
 
   const tags = [
     { name: 'Todas', icon: < Globe2 size={12} /> },
@@ -317,12 +329,38 @@ export default function NewsFeed() {
     { name: 'Política', icon: <ShieldCheck size={12} /> },
   ];
 
-  const filteredNews = activeTag === 'Todas' 
-    ? news 
-    : news.filter(item => item.category === activeTag);
+  const heroItems = news.slice(0, 3);
+  const feedItems = news.slice(3);
 
-  const heroItems = filteredNews.slice(0, 3);
-  const feedItems = filteredNews.slice(3);
+  const handleLoadMore = async () => {
+    const nextLimit = limit + 6;
+
+    // If we need more data than what we have in memory
+    if (nextLimit + 3 > news.length && news.length < totalCount) {
+      setIsFetchingMore(true);
+      try {
+        let query = supabase
+          .from('articles')
+          .select('id, title, subtitle, category, image_url, published_at, author, slug')
+          .order('published_at', { ascending: false })
+          .range(news.length, news.length + 11); // Fetch next 12
+
+        if (activeTag !== 'Todas') {
+          query = query.eq('category', activeTag);
+        }
+
+        const { data, error } = await query;
+        if (error) throw error;
+        setNews(prev => [...prev, ...(data || [])]);
+      } catch (err) {
+        console.error('Error fetching more news:', err);
+      } finally {
+        setIsFetchingMore(false);
+      }
+    }
+
+    setLimit(nextLimit);
+  };
 
   if (loading) return (
     <div className="min-h-screen flex items-center justify-center">
@@ -333,7 +371,7 @@ export default function NewsFeed() {
   return (
     <div className="w-full px-6 lg:px-12 pb-32">
       <HeaderClearance />
-      <NewsStructuredData items={[...heroItems, ...news]} />
+      <NewsStructuredData items={news} />
       
       <div className="max-w-7xl mx-auto">
         
@@ -376,14 +414,18 @@ export default function NewsFeed() {
           </div>
 
           {/* VER MAS BUTTON */}
-          {limit < feedItems.length && (
+          {(limit < feedItems.length || news.length < totalCount) && (
             <div className="flex justify-center">
               <button 
-                onClick={() => setLimit(prev => prev + 6)}
-                className="group flex items-center gap-3 px-12 py-4 rounded-full border-2 border-zinc-900 dark:border-zinc-100 text-[11px] font-black uppercase tracking-[0.3em] hover:bg-zinc-900 hover:text-white dark:hover:bg-zinc-100 dark:hover:text-zinc-900 transition-all duration-300"
+                onClick={handleLoadMore}
+                disabled={isFetchingMore}
+                className="group flex items-center gap-3 px-12 py-4 rounded-full border-2 border-zinc-900 dark:border-zinc-100 text-[11px] font-black uppercase tracking-[0.3em] hover:bg-zinc-900 hover:text-white dark:hover:bg-zinc-100 dark:hover:text-zinc-900 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <Plus size={16} className="group-hover:rotate-90 transition-transform duration-500" />
-                Ver más noticias
+                <Plus size={16} className={cn(
+                  "transition-transform duration-500",
+                  isFetchingMore ? "animate-spin" : "group-hover:rotate-90"
+                )} />
+                {isFetchingMore ? 'Cargando...' : 'Ver más noticias'}
               </button>
             </div>
           )}

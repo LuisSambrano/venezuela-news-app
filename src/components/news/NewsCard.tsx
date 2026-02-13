@@ -18,7 +18,10 @@ interface NewsItem {
 export const NewsCard = ({ item }: { item: NewsItem }) => {
   const timeAgo = (date: string) => {
     try {
-      const seconds = Math.floor((new Date().getTime() - new Date(date).getTime()) / 1000);
+      const dateObj = new Date(date);
+      if (isNaN(dateObj.getTime())) return 'Recently';
+
+      const seconds = Math.floor((new Date().getTime() - dateObj.getTime()) / 1000);
       if (seconds < 60) return 'Just now';
       if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
       if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`;
