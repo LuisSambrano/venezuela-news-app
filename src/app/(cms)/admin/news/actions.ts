@@ -3,6 +3,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { logger } from "@/lib/logger";
 
 /**
  * Deletes an article by its ID.
@@ -15,6 +16,7 @@ export async function deleteArticle(formData: FormData) {
   const { error } = await supabase.from("articles").delete().eq("id", id);
 
   if (error) {
+    logger.error("Failed to delete article", { error, id });
     throw new Error("Failed to delete article");
   }
 
@@ -55,7 +57,7 @@ export async function createArticle(formData: FormData) {
     });
 
     if (error) {
-        console.error(error);
+        logger.error("Failed to create article", { error, title });
         throw new Error("Failed to create article");
     }
 
@@ -96,7 +98,7 @@ export async function updateArticle(formData: FormData) {
         .eq("id", id);
 
     if (error) {
-        console.error(error);
+        logger.error("Failed to update article", { error, id, updates });
         throw new Error("Failed to update article");
     }
 
@@ -119,6 +121,7 @@ export async function togglePublished(formData: FormData) {
         .eq("id", id);
 
     if (error) {
+        logger.error("Failed to toggle article status", { error, id, currentStatus });
         throw new Error("Failed to toggle article status");
     }
 
