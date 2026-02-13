@@ -1,4 +1,5 @@
 import { Currency } from "@/lib/types/currency";
+import { logger } from "@/lib/logger";
 
 interface ApiCurrency {
   moneda: string;
@@ -32,7 +33,7 @@ export const DolarService = {
         variation: 0, 
       }));
     } catch (error) {
-      console.error("DolarService Error:", error);
+      logger.error("DolarService Error", { error });
       return [];
     }
   },
