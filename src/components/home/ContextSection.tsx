@@ -14,9 +14,9 @@ export default function ActTwo() {
     <section className="min-h-screen flex flex-col justify-center py-32 px-6 snap-center">
       <div className="max-w-5xl mx-auto space-y-16">
         <div className="space-y-4 text-center">
-            <h3 className="text-4xl md:text-6xl font-bold tracking-tight text-zinc-900 dark:text-white">
+            <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-zinc-900 dark:text-white">
                 Silencio Arquitectónico.
-            </h3>
+            </h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

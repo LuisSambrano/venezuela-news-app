@@ -23,14 +23,14 @@ export function Footer() {
 
         {/* CENTER: Social Networks (The 2026 Standard) */}
         <div className="flex items-center gap-8 text-muted-foreground/60">
-           <a href="#" className="hover:text-foreground hover:scale-125 transition-all duration-300">
+           <a href="#" aria-label="X (Twitter)" className="hover:text-foreground hover:scale-125 transition-all duration-300">
              <svg viewBox="0 0 24 24" aria-hidden="true" className="w-4 h-4 fill-current">
                <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
              </svg>
            </a>
-           <a href="#" className="hover:text-foreground hover:scale-125 transition-all duration-300"><Linkedin size={16} /></a>
-           <a href="#" className="hover:text-foreground hover:scale-125 transition-all duration-300"><Instagram size={16} /></a>
-           <a href="#" className="hover:text-foreground hover:scale-125 transition-all duration-300"><Github size={16} /></a>
+           <a href="#" aria-label="LinkedIn" className="hover:text-foreground hover:scale-125 transition-all duration-300"><Linkedin size={16} /></a>
+           <a href="#" aria-label="Instagram" className="hover:text-foreground hover:scale-125 transition-all duration-300"><Instagram size={16} /></a>
+           <a href="#" aria-label="GitHub" className="hover:text-foreground hover:scale-125 transition-all duration-300"><Github size={16} /></a>
         </div>
 
         {/* RIGHT: Legal & Compliance */}
@@ -40,7 +40,7 @@ export function Footer() {
           
           <div className="w-px h-3 bg-border mx-2 opacity-50"></div>
           
-          <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="hover:text-primary transition-all group p-2 rounded-full hover:bg-primary/5">
+          <button aria-label="Volver arriba" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="hover:text-primary transition-all group p-2 rounded-full hover:bg-primary/5">
             <ArrowUp size={14} className="group-hover:-translate-y-1 transition-transform" />
           </button>
         </div>

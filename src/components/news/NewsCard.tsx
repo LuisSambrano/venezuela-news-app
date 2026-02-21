@@ -3,6 +3,7 @@
 import { memo } from 'react';
 import { m as motion } from 'framer-motion';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Clock } from 'lucide-react';
 
 interface NewsItem {
@@ -33,6 +34,7 @@ export const NewsCard = memo(({ item }: { item: NewsItem }) => {
   };
 
   return (
+    <Link href={`/noticias/${item.slug}`} className="block">
     <motion.article
       layout
       initial={{ opacity: 0, scale: 0.95 }}
@@ -68,6 +70,7 @@ export const NewsCard = memo(({ item }: { item: NewsItem }) => {
         </p>
       </div>
     </motion.article>
+    </Link>
   );
 });
 

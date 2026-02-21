@@ -15,12 +15,9 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
+        // Allow all HTTPS image sources — GNews articles bring images from hundreds of news domains
         protocol: 'https',
-        hostname: 'images.unsplash.com',
-      },
-       {
-        protocol: 'https',
-        hostname: 'mt-venezuela.com',
+        hostname: '**',
       },
     ],
   },

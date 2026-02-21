@@ -54,7 +54,7 @@ The project emphasizes **Reliability**, **Security**, and **Clarity**.
 
 | File                               | Purpose                                    |
 | :--------------------------------- | :----------------------------------------- |
-| `src/middleware.ts`                | Request interception and route protection. |
+| `src/proxy.ts`                     | Request interception and route protection. |
 | `src/app/layout.tsx`               | Global Root Layout (Providers, Fonts).     |
 | `src/app/(marketing)/layout.tsx`   | Public Interface Layout.                   |
 | `src/components/ui/glass-card.tsx` | Standardized UI container component.       |
