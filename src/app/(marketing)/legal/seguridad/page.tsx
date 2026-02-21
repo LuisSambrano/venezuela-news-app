@@ -6,7 +6,7 @@ export default function SeguridadPage() {
       title="Seguridad"
       iconName="Lock"
       content={[
-        "M&T Venezuela implementa medidas de seguridad estándar de la industria para proteger la integridad de nuestro sitio web y la información de nuestros usuarios.",
+        "LibertadVNZL implementa medidas de seguridad estándar de la industria para proteger la integridad de nuestro sitio web y la información de nuestros usuarios.",
         "Utilizamos conexiones HTTPS cifradas y seguimos las mejores prácticas de desarrollo seguro para prevenir accesos no autorizados."
       ]}
     />

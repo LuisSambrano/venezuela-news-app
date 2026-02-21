@@ -47,10 +47,10 @@ const NewsStructuredData = memo(({ items }: { items: NewsItem[] }) => {
         },
         "publisher": {
           "@type": "Organization",
-          "name": "M&T Venezuela",
+          "name": "LibertadVNZL",
           "logo": {
             "@type": "ImageObject",
-            "url": "https://mtvenezuela.com/logo.png"
+            "url": "https://libertadvnzl.com/logo.png"
           }
         }
       }

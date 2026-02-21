@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { Newspaper, Users, ShieldAlert, Activity } from "lucide-react";
+import { CountUp } from "@/components/ui/CountUp";
 
 export default async function DashboardPage() {
   const supabase = await createClient();
@@ -14,10 +15,10 @@ export default async function DashboardPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight text-white uppercase font-mono">
+        <h1 className="text-3xl font-black tracking-tight text-white uppercase italic">
            Dashboard
         </h1>
-        <p className="text-zinc-600 text-sm font-mono mt-2">Resumen general del sistema.</p>
+        <p className="text-zinc-500 text-sm mt-2">Resumen general del sistema.</p>
       </div>
 
       {/* KPI GRID */}
@@ -66,17 +67,19 @@ function StatCard({ title, value, icon: Icon, trend, alert }: StatCardProps) {
             {alert && <div className="absolute inset-0 bg-red-900/5 animate-pulse-slow pointer-events-none" />}
             
             <div className="flex items-center justify-between mb-4">
-                <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-500 group-hover:text-zinc-300 transition-colors">
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500 group-hover:text-zinc-300 transition-colors">
                     {title}
                 </span>
                 <Icon className={`h-4 w-4 ${alert ? 'text-red-500 animate-pulse' : 'text-blue-500/50 group-hover:text-blue-400'}`} />
             </div>
             
             <div className="relative">
-                <div className="text-4xl font-mono font-light text-white tracking-tighter">
-                    {value.toString().padStart(2, '0')}
-                </div>
-                <div className={`text-[9px] font-mono uppercase mt-2 w-fit px-2 py-0.5 rounded-sm ${alert ? 'bg-red-900/30 text-red-400' : 'bg-white/5 text-zinc-500'}`}>
+                <CountUp 
+                  target={value} 
+                  className="text-4xl font-mono font-light text-white tracking-tighter" 
+                  duration={1.5}
+                />
+                <div className={`text-[9px] font-bold uppercase mt-2 w-fit px-2 py-0.5 rounded-sm ${alert ? 'bg-red-900/30 text-red-400' : 'bg-white/5 text-zinc-500'}`}>
                     {trend}
                 </div>
             </div>

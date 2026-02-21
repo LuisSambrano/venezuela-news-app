@@ -25,18 +25,19 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
     .single();
 
   if (!article) {
-    return { title: "Artículo no encontrado | M&T Venezuela" };
+    return { title: "Artículo no encontrado | LibertadVNZL" };
   }
 
   return {
-    title: `${article.title} | M&T Venezuela`,
+    title: `${article.title} | LibertadVNZL`,
     description: article.subtitle,
     openGraph: {
       title: article.title,
       description: article.subtitle,
       type: "article",
+      url: `https://venezuelanews.app/noticias/${slug}`,
       images: article.image_url ? [{ url: article.image_url, width: 1200, height: 630 }] : [],
-      siteName: "M&T Venezuela",
+      siteName: "LibertadVNZL",
     },
     twitter: {
       card: "summary_large_image",
@@ -44,6 +45,9 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
       description: article.subtitle,
       images: article.image_url ? [article.image_url] : [],
     },
+    alternates: {
+      canonical: `https://venezuelanews.app/noticias/${slug}`,
+    }
   };
 }
 
@@ -146,6 +150,60 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
   return (
     <main className="min-h-screen">
+      {/* JSON-LD Schema for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([
+            {
+              "@context": "https://schema.org",
+              "@type": "NewsArticle",
+              "headline": article.title,
+              "image": article.image_url ? [article.image_url] : [],
+              "datePublished": article.published_at,
+              "dateModified": article.published_at,
+              "author": [{
+                  "@type": "Organization",
+                  "name": article.author,
+                  "url": "https://venezuelanews.app"
+              }],
+              "publisher": {
+                  "@type": "Organization",
+                  "name": "LibertadVNZL",
+                  "logo": {
+                      "@type": "ImageObject",
+                      "url": "https://venezuelanews.app/icon.png"
+                  }
+              }
+            },
+            {
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              "itemListElement": [{
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Inicio",
+                "item": "https://venezuelanews.app"
+              },{
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Noticias",
+                "item": "https://venezuelanews.app/noticias"
+              },{
+                "@type": "ListItem",
+                "position": 3,
+                "name": article.category,
+                "item": `https://venezuelanews.app/noticias?category=${encodeURIComponent(article.category)}`
+              },{
+                "@type": "ListItem",
+                "position": 4,
+                "name": article.title
+              }]
+            }
+          ])
+        }}
+      />
+
       {/* Hero Image */}
       {article.image_url && (
         <div className="relative w-full h-[40vh] md:h-[50vh] lg:h-[60vh]">

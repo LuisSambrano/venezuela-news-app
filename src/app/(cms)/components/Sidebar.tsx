@@ -21,13 +21,13 @@ export default function Sidebar({ userRole }: { userRole: string }) {
       <div className="space-y-8">
         {/* LOGO */}
         <Link href="/" className="mb-8 flex items-center gap-3 px-2 group hover:opacity-80 transition-opacity">
-          <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-zinc-800 to-zinc-900 border border-zinc-700 shadow-xl overflow-hidden group-hover:shadow-[0_0_20px_rgba(59,130,246,0.3)] transition-all duration-500">
+          <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-tr from-zinc-800 to-zinc-900 border border-zinc-700 shadow-xl overflow-hidden group-hover:shadow-[0_0_20px_rgba(59,130,246,0.3)] transition-all duration-500">
              <Shield className="h-5 w-5 text-zinc-100 relative z-10 group-hover:scale-110 transition-transform duration-500" />
              <div className="absolute inset-0 bg-blue-500/10 group-hover:bg-blue-500/20 transition-colors" />
           </div>
           <div>
             <h1 className="font-sans text-sm font-bold text-zinc-100 tracking-wide">
-              M&T<span className="text-blue-500">.</span>
+              LibertadVNZL<span className="text-blue-500">.</span>
             </h1>
             <p className="font-mono text-[10px] text-zinc-500 tracking-wider font-medium">
               PANEL ADMIN

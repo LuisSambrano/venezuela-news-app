@@ -53,7 +53,7 @@ export default function NewArticlePage() {
 
             {/* SIDEBAR METADATA */}
             <div className="space-y-6">
-                <div className="p-6 rounded-xl glass-panel border border-zinc-200 dark:border-zinc-800 space-y-6">
+                <div className="p-6 rounded-[24px] glass-panel border border-zinc-200 dark:border-zinc-800 space-y-6">
                     <div className="space-y-2">
                         <Label>Categoría</Label>
                         <Select name="category" required defaultValue="General">
@@ -90,7 +90,7 @@ export default function NewArticlePage() {
 function SubmitButton() {
     const { pending } = useFormStatus();
     return (
-        <Button type="submit" disabled={pending} className="w-full bg-blue-600 hover:bg-blue-700">
+        <Button type="submit" disabled={pending} className="w-full rounded-full bg-blue-600 hover:bg-blue-700">
             {pending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
             {pending ? "Publicando..." : "Publicar Noticia"}
         </Button>

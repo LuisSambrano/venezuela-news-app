@@ -170,7 +170,7 @@ Este projeto segue uma metodologia **Research-First**. Todas as decisões estrat
 
 <br/><br/>
 
-**Projeto M&T Venezuela**
+**Projeto LibertadVNZL**
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=0,9,11&height=100&section=footer"/>
 

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Plus, Newspaper, Globe, PenLine } from "lucide-react";
 import NewsTable from "./components/NewsTable";
+import { CountUp } from "@/components/ui/CountUp";
 
 export default async function NewsAdminPage() {
   const supabase = await createClient();
@@ -61,7 +62,7 @@ export default async function NewsAdminPage() {
         }
       </div>
 
-      <div className="glass-panel rounded-2xl border border-zinc-200 dark:border-zinc-800 overflow-hidden">
+      <div className="glass-panel rounded-[24px] border border-zinc-200 dark:border-zinc-800 overflow-hidden">
         <NewsTable articles={articles || []} />
       </div>
     </div>
@@ -77,12 +78,15 @@ function StatCard({ icon, label, value, color }: { icon: React.ReactNode; label:
   };
 
   return (
-    <div className="p-4 rounded-xl glass-panel border border-zinc-200 dark:border-zinc-800">
+    <div className="p-4 rounded-[24px] glass-panel border border-zinc-200 dark:border-zinc-800">
       <div className="flex items-center gap-2 text-zinc-500 mb-1">
         {icon}
-        <span className="text-[10px] font-mono uppercase tracking-wider">{label}</span>
+        <span className="text-[10px] font-bold uppercase tracking-wider">{label}</span>
       </div>
-      <p className={`text-2xl font-bold font-mono ${color ? colorMap[color] : "text-white"}`}>{value}</p>
+      <CountUp 
+        target={value} 
+        className={`text-2xl font-black font-mono tracking-tighter ${color ? colorMap[color] : "text-white"}`} 
+      />
     </div>
   );
 }

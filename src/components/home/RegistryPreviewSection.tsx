@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * RegistryPreviewSection — Value proposition: Why choose M&T Venezuela.
+ * RegistryPreviewSection — Value proposition: Why choose LibertadVNZL.
  * Dark immersive section with staggered scroll reveals.
  */
 
@@ -71,9 +71,8 @@ export default function RegistryPreviewSection() {
               <motion.div
                 key={feature.title}
                 initial={{ opacity: 0, y: 40 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.2 + i * 0.15 }}
-                className="p-8 rounded-3xl bg-white/[0.04] border border-white/[0.06] backdrop-blur-sm hover:bg-white/[0.08] hover:border-blue-500/20 transition-all duration-500 group space-y-6"
+                className="p-8 rounded-3xl bg-white/5 border border-white/5 backdrop-blur-sm hover:bg-white/10 hover:border-blue-500/20 transition-all duration-500 group space-y-6"
               >
                 <div className="w-14 h-14 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
                   <Icon className="w-6 h-6 text-blue-400" />

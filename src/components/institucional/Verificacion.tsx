@@ -9,7 +9,7 @@ export default function VerificacionComponent() {
       <header className="space-y-8 text-center max-w-4xl mx-auto">
          <h1 className="text-6xl md:text-[110px] font-black uppercase tracking-tighter leading-none italic">Verificación</h1>
       </header>
-      <div className="bg-foreground text-background p-16 lg:p-24 rounded-[72px] shadow-2xl relative overflow-hidden">
+      <div className="bg-foreground text-background p-16 lg:p-24 rounded-[64px] shadow-2xl relative overflow-hidden">
          <ClipboardCheck className="absolute top-10 right-10 opacity-10" size={200} />
          <div className="max-w-3xl space-y-12 relative z-10">
             <h3 className="text-6xl font-black uppercase italic tracking-tighter">Proceso Editorial</h3>

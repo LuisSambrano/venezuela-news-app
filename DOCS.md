@@ -1,7 +1,7 @@
-# 📚 M&T Venezuela: Technical Documentation
+# 📚 LibertadVNZL: Technical Documentation
 
 **Project Overview**
-M&T Venezuela is a next-generation news and data intelligence platform designed for high-availability, security, and censorship resistance. This document serves as the central repository for technical architecture, design specifications, and implementation details.
+LibertadVNZL is a next-generation news and data intelligence platform designed for high-availability, security, and censorship resistance. This document serves as the central repository for technical architecture, design specifications, and implementation details.
 
 ---
 

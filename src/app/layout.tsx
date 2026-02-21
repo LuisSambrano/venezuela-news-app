@@ -18,33 +18,33 @@ const fontMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://venezuelanews.app"),
   title: {
-    default: "M&T Venezuela | Noticias",
-    template: "%s | M&T Venezuela"
+    default: "LibertadVNZL | Noticias",
+    template: "%s | LibertadVNZL"
   },
   description: "Periodismo independiente sobre Venezuela. Noticias verificadas, análisis editorial y cobertura continua.",
   keywords: [
     "Venezuela", "Noticias", "Periodismo", "Noticias Venezuela",
     "Actualidad", "Economía", "Política", "Sociedad"
   ],
-  authors: [{ name: "M&T Venezuela" }],
-  creator: "M&T Venezuela",
-  publisher: "M&T Venezuela",
+  authors: [{ name: "LibertadVNZL" }],
+  creator: "LibertadVNZL",
+  publisher: "LibertadVNZL",
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
   openGraph: {
-    title: "M&T Venezuela | Noticias",
+    title: "LibertadVNZL | Noticias",
     description: "Periodismo independiente sobre Venezuela. Noticias verificadas y cobertura continua.",
     url: "https://venezuelanews.app",
-    siteName: "M&T Venezuela",
+    siteName: "LibertadVNZL",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "M&T Venezuela",
+        alt: "LibertadVNZL",
       },
     ],
     locale: "es_VE",
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "M&T Venezuela | Noticias",
+    title: "LibertadVNZL | Noticias",
     description: "Periodismo independiente sobre Venezuela. Noticias verificadas y cobertura continua.",
     images: ["/twitter-image.jpg"],
   },
@@ -88,7 +88,7 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "NewsMediaOrganization",
-              "name": "M&T Venezuela",
+              "name": "LibertadVNZL",
               "url": "https://venezuelanews.app",
               "logo": "https://venezuelanews.app/icon.png",
               "description": "Periodismo independiente sobre Venezuela.",

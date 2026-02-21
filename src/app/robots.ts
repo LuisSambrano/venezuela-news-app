@@ -7,6 +7,9 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: '/private/',
     },
-    sitemap: 'https://venezuelanews.app/sitemap.xml',
+    sitemap: [
+      'https://venezuelanews.app/sitemap.xml',
+      'https://venezuelanews.app/sitemap-news.xml',
+    ],
   }
 }

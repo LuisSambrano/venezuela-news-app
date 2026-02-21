@@ -170,7 +170,7 @@ This project follows a **Research-First** methodology. All strategic decisions a
 
 <br/><br/>
 
-**M&T Venezuela Project**
+**LibertadVNZL Project**
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=0,9,11&height=100&section=footer"/>
 

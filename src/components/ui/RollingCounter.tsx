@@ -2,7 +2,7 @@
 
 /**
  * RollingCounter — Premium mechanical-style rolling counter.
- * Adapted from external spec for M&T Venezuela launch countdown.
+ * Adapted from external spec for LibertadVNZL launch countdown.
  */
 
 import { MotionValue, motion, useSpring, useTransform } from "framer-motion";
@@ -51,7 +51,23 @@ interface DigitProps {
 }
 
 function Digit({ place, value, height, digitStyle }: DigitProps) {
-  if (place === ".") {
+  const isDot = place === ".";
+  const numPlace = isDot ? 1 : (place as number);
+  const valueRoundedToPlace = Math.floor(value / numPlace);
+
+  const animatedValue = useSpring(valueRoundedToPlace, {
+    damping: 20,
+    stiffness: 100,
+    mass: 1,
+  });
+
+  useEffect(() => {
+    if (!isDot) {
+      animatedValue.set(valueRoundedToPlace);
+    }
+  }, [animatedValue, valueRoundedToPlace, isDot]);
+
+  if (isDot) {
     return (
       <span
         className="relative inline-flex items-center justify-center"
@@ -61,17 +77,6 @@ function Digit({ place, value, height, digitStyle }: DigitProps) {
       </span>
     );
   }
-
-  const valueRoundedToPlace = Math.floor(value / place);
-  const animatedValue = useSpring(valueRoundedToPlace, {
-    damping: 20,
-    stiffness: 100,
-    mass: 1,
-  });
-
-  useEffect(() => {
-    animatedValue.set(valueRoundedToPlace);
-  }, [animatedValue, valueRoundedToPlace]);
 
   return (
     <span
