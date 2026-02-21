@@ -8,7 +8,7 @@ export function BrandLogo({ className = "" }: { className?: string }) {
     <Link href="/" className={`flex items-center gap-2 group ${className}`}>
       {/* Torch symbol as a sophisticated minimalist hallmark */}
       <Image
-        src="/logo.png"
+        src="/Logo.png"
         alt="Libertad VNZL Logo"
         width={32}
         height={32}
