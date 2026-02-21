@@ -1,7 +1,7 @@
 {
-  "name": "M&T Venezuela Intelligence",
+  "name": "M&T Venezuela Noticias",
   "short_name": "M&T Venezuela",
-  "description": "Portal de Inteligencia Informativa y Económica. Data verificada y análisis en tiempo real.",
+  "description": "Periodismo independiente sobre Venezuela. Noticias verificadas y cobertura continua.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#030712",

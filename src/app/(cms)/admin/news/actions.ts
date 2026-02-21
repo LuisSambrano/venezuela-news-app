@@ -50,7 +50,7 @@ export async function createArticle(formData: FormData) {
         category,
         image_url,
         slug,
-        author: "M&T Intelligence",
+        author: "M&T Venezuela",
         published_at: new Date().toISOString(),
         source: "manual",
         published: true,

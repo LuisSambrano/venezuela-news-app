@@ -1,13 +1,13 @@
 "use client";
 
 import { m as motion } from "framer-motion";
-import { EyeOff, Radio, Lock } from "lucide-react";
+import { Newspaper, TrendingUp, Users } from "lucide-react";
 
-export default function ActTwo() {
+export default function ContextSection() {
   const stats = [
-    { icon: <EyeOff className="w-6 h-6" />, value: "60+", label: "Medios Bloqueados" },
-    { icon: <Radio className="w-6 h-6" />, value: "12", label: "Emisoras Cerradas" },
-    { icon: <Lock className="w-6 h-6" />, value: "3ms", label: "Latencia de Bloqueo" },
+    { icon: <Newspaper className="w-6 h-6" />, value: "450+", label: "Artículos Publicados" },
+    { icon: <TrendingUp className="w-6 h-6" />, value: "24/7", label: "Cobertura Continua" },
+    { icon: <Users className="w-6 h-6" />, value: "100%", label: "Contenido Verificado" },
   ];
 
   return (
@@ -15,7 +15,7 @@ export default function ActTwo() {
       <div className="max-w-5xl mx-auto space-y-16">
         <div className="space-y-4 text-center">
             <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-zinc-900 dark:text-white">
-                Silencio Arquitectónico.
+                Noticias que importan.
             </h2>
         </div>
 

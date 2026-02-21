@@ -16,18 +16,17 @@ const fontMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://venezuelanews.app"), // Replace with actual domain when live
+  metadataBase: new URL("https://venezuelanews.app"),
   title: {
-    default: "M&T Venezuela | Inteligencia Informativa",
+    default: "M&T Venezuela | Noticias",
     template: "%s | M&T Venezuela"
   },
-  description: "Búnker digital de inteligencia Open-Source. Noticias verificadas, monitoreo económico en tiempo real y análisis forense de DDHH.",
+  description: "Periodismo independiente sobre Venezuela. Noticias verificadas, análisis editorial y cobertura continua.",
   keywords: [
-    "Venezuela", "Noticias", "OSINT", "Inteligencia", "Derechos Humanos", 
-    "Censura", "Libertad de Expresión", "Dólar Monitor", "Crisis Humanitaria", 
-    "Verificación", "Desinformación", "Seguridad Digital"
+    "Venezuela", "Noticias", "Periodismo", "Noticias Venezuela",
+    "Actualidad", "Economía", "Política", "Sociedad"
   ],
-  authors: [{ name: "M&T Venezuela Intelligence Unit" }],
+  authors: [{ name: "M&T Venezuela" }],
   creator: "M&T Venezuela",
   publisher: "M&T Venezuela",
   formatDetection: {
@@ -36,16 +35,16 @@ export const metadata: Metadata = {
     telephone: false,
   },
   openGraph: {
-    title: "M&T Venezuela | Inteligencia Informativa",
-    description: "Búnker digital de inteligencia contra la censura. Monitoreo en tiempo real y verdad verificada.",
+    title: "M&T Venezuela | Noticias",
+    description: "Periodismo independiente sobre Venezuela. Noticias verificadas y cobertura continua.",
     url: "https://venezuelanews.app",
     siteName: "M&T Venezuela",
     images: [
       {
-        url: "/og-image.jpg", // Needs to be added to public/
+        url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "M&T Venezuela Intelligence Hub",
+        alt: "M&T Venezuela",
       },
     ],
     locale: "es_VE",
@@ -53,10 +52,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "M&T Venezuela | Inteligencia Informativa",
-    description: "La Verdad es Poder. Sistema de inteligencia open-source contra la desinformación.",
-    images: ["/twitter-image.jpg"], // Needs to be added to public/
-    creator: "@MandTVenezuela", // Replace with actual handle
+    title: "M&T Venezuela | Noticias",
+    description: "Periodismo independiente sobre Venezuela. Noticias verificadas y cobertura continua.",
+    images: ["/twitter-image.jpg"],
   },
   manifest: "/manifest.json",
   icons: {
@@ -92,12 +90,9 @@ export default function RootLayout({
               "@type": "NewsMediaOrganization",
               "name": "M&T Venezuela",
               "url": "https://venezuelanews.app",
-              "logo": "https://venezuelanews.app/logo.png",
-              "sameAs": [
-                "https://twitter.com/MandTVenezuela",
-                "https://instagram.com/MandTVenezuela"
-              ],
-              "missionCoveragePrioritiesPolicy": "https://venezuelanews.app/institucional/etica",
+              "logo": "https://venezuelanews.app/icon.png",
+              "description": "Periodismo independiente sobre Venezuela.",
+              "ethicsPolicy": "https://venezuelanews.app/institucional/etica",
               "correctionsPolicy": "https://venezuelanews.app/institucional/verificacion",
               "verificationFactCheckingPolicy": "https://venezuelanews.app/institucional/metodologia"
             })

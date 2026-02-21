@@ -6,8 +6,8 @@ export default function SeguridadPage() {
       title="Seguridad"
       iconName="Lock"
       content={[
-        "Nuestra infraestructura está protegida por múltiples capas de firewalls y balanceadores de carga redundantes para asegurar la disponibilidad del archivo frente a ataques externos.",
-        "Toda la información recolectada se distribuye en nodos internacionales para garantizar su inmutabilidad frente a intentos de censura o borrado remoto."
+        "M&T Venezuela implementa medidas de seguridad estándar de la industria para proteger la integridad de nuestro sitio web y la información de nuestros usuarios.",
+        "Utilizamos conexiones HTTPS cifradas y seguimos las mejores prácticas de desarrollo seguro para prevenir accesos no autorizados."
       ]}
     />
   );
